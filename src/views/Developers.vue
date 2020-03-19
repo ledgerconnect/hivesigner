@@ -18,7 +18,7 @@
             <p>
               To create a new app on HiveSigner you need a Hive account for it. If you don't have
               one yet you can create one on
-              <a href="https://signup.hive.blog" target="_blank">signup.hive.blog in with your app
+              <a href="https://signup.hive.io" target="_blank">signup.hive.io</a> in with your app
               account and update your profile with "application" as account type.
             </p>
             <router-link to="/profile" class="btn btn-large">
@@ -26,8 +26,8 @@
             </router-link>
           </div>
           <p>
-            If you would like to use the OAuth 2 API for posting with HiveSigner server you need
-            to authorize the Hive account "hivesigner" to post on the behalf of your app account.
+            If you would like to use the OAuth 2 API for posting with HiveSigner server you need to
+            authorize the Hive account "hivesigner" to post on the behalf of your app account.
             <router-link to="/authorize/hivesigner">Click here</router-link>
             to do this and sign with your app account.
           </p>

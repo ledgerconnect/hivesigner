@@ -11,7 +11,7 @@ const state = {
   language: 'en',
   timeout: '20',
   theme: 'white',
-  address: 'https://api.hive.nlog',
+  address: 'https://api.hive.blog',
 };
 
 const mutations = {
