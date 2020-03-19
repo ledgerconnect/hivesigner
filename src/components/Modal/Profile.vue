@@ -25,7 +25,7 @@
             <div v-if="profile.creator" class="mb-4">
               <p><b>Creator</b></p>
               <p>
-                <a :href="'https://steemit.com/@' + profile.creator" target="_blank">
+                <a :href="'https://hive.blog/@' + profile.creator" target="_blank">
                   <Avatar :username="profile.creator" :size="22" />
                   {{ profile.creator }}
                   <span class="iconfont icon-link-external"></span>

@@ -21,7 +21,7 @@
     }
   },
   "delegate_vesting_shares": {
-    "name": "Delegate Steem Power",
+    "name": "Delegate Hive Power",
     "authority": "active",
     "schema": {
       "delegator": {
@@ -143,7 +143,7 @@
       },
       "fee": {
         "type": "amount",
-        "defaultValue": "0.000 STEEM"
+        "defaultValue": "0.000 HIVE"
       },
       "extensions": {
         "type": "array",

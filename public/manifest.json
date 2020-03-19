@@ -1,7 +1,7 @@
 {
-  "name": "steemconnect",
-  "version": "0.1.5",
-  "description": "Signer app for Steem",
+  "name": "hivesigner",
+  "version": "0.1.6",
+  "description": "Signer app for Hive",
   "icons": {
     "16": "icon16.png",
     "32": "favicon.png",

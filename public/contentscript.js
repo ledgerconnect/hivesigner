@@ -1,6 +1,6 @@
 /* global chrome */
 
-const MESSAGE_TAG = 'STEEMCONNECT_MESSAGE';
+const MESSAGE_TAG = 'HIVESIGNER_MESSAGE';
 
 function respond(event, err, res) {
   window.postMessage(

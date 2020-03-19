@@ -95,7 +95,7 @@ export default {
       username: this.$route.params.username,
       authority: getAuthority(this.$route.query.authority, 'posting'),
       callback: this.$route.query.redirect_uri,
-      uri: `steem://authorize/${this.$route.params.username}${buildSearchParams(this.$route)}`,
+      uri: `hive://authorize/${this.$route.params.username}${buildSearchParams(this.$route)}`,
     };
   },
   computed: {

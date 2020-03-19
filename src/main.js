@@ -51,7 +51,7 @@ getPersistedData(({ store, url }) => {
 
   if (ipc) {
     ipc.on('handleProtocol', (e, arg) => {
-      const newUrl = `/${arg.slice('steem://'.length)}`;
+      const newUrl = `/${arg.slice('hive://'.length)}`;
 
       router.push(newUrl);
     });

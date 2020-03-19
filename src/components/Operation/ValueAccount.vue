@@ -1,5 +1,5 @@
 <template>
-  <a :href="'https://steemit.com/@' + value" target="_blank">
+  <a :href="'https://hive.blog/@' + value" target="_blank">
     <Avatar :username="value" :size="22" />
     {{ value }}
     <span class="iconfont icon-link-external"></span>

@@ -2,12 +2,12 @@
   <Center>
     <router-link to="/" class="d-inline-block my-2 no-decoration">
       <span class="logo iconfont icon-steemconnect" />
-      <h4 class="m-0">steemconnect</h4>
+      <h4 class="m-0">hivesigner</h4>
     </router-link>
     <div class="width-full p-4 mb-2">
       <form @submit.prevent="submitForm" method="post" class="text-left">
         <div v-if="step === 1">
-          <label for="username">Steem username</label>
+          <label for="username">Hive username</label>
           <div v-if="dirty.username && !!errors.username" class="error mb-2">
             {{ errors.username }}
           </div>
@@ -22,7 +22,7 @@
             autocomplete="username"
             @blur="handleBlur('username')"
           />
-          <label for="password"> Steem password or {{ authority || 'private' }} key </label>
+          <label for="password"> Hive password or {{ authority || 'private' }} key </label>
           <div v-if="dirty.password && !!errors.password" class="error mb-2">
             {{ errors.password }}
           </div>

@@ -2,7 +2,7 @@
   <div class="hero height-full">
     <Center>
       <span class="logo iconfont icon-steemconnect" />
-      <h4 class="m-0">steemconnect</h4>
+      <h4 class="m-0">hivesigner</h4>
       <div class="mt-4 mb-7">
         <h1 class="mb-6">You're in control of your keys.</h1>
         <div class="columns mb-6 hide-sm">
@@ -28,7 +28,7 @@
           </div>
         </div>
         <p>
-          With SteemConnect, you're always in control of your private keys: we neither store nor
+          With HiveSigner, you're always in control of your private keys: we neither store nor
           have access to them.
         </p>
       </div>

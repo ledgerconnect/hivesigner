@@ -22,7 +22,7 @@ export function jsonParse(input, fallback) {
   }
 }
 
-/** Parse error message from Steemd response */
+/** Parse error message from hived response */
 export function getErrorMessage(error) {
   let errorMessage = '';
   if (has(error, 'stack[0].format')) {
@@ -79,10 +79,10 @@ function processValue(schema, key, value, { vestsToSP }) {
   switch (type) {
     case 'amount':
       if (realValue.indexOf('VESTS') !== -1) return `${parseFloat(realValue).toFixed(6)} VESTS`;
-      if (realValue.indexOf('SP') !== -1)
+      if (realValue.indexOf('HP') !== -1)
         return `${(parseFloat(realValue) / vestsToSP).toFixed(6)} VESTS`;
-      if (realValue.indexOf('STEEM') !== -1) return `${parseFloat(realValue).toFixed(3)} STEEM`;
-      if (realValue.indexOf('SBD') !== -1) return `${parseFloat(realValue).toFixed(3)} SBD`;
+      if (realValue.indexOf('HIVE') !== -1) return `${parseFloat(realValue).toFixed(3)} HIVE`;
+      if (realValue.indexOf('HBD') !== -1) return `${parseFloat(realValue).toFixed(3)} HBD`;
       return realValue;
     case 'int':
       return parseInt(realValue, 10);

@@ -1,9 +1,8 @@
 {
-  "name": "steemconnect",
-  "version": "0.1.5",
-  "description": "Signer app for Steem",
-  "author": "Fabien Marino <fabien@bonustrack.co> (https://github.com/bonustrack)",
-  "homepage": "https://steemconnect.com",
+  "name": "hivesigner",
+  "version": "0.1.6",
+  "description": "Signer app for Hive",
+  "homepage": "https://hivesigner.com",
   "main": "electron-entry.js",
   "license": "MIT",
   "scripts": {
@@ -17,7 +16,7 @@
     "build-electron:mac": "electron-builder --mac",
     "build-electron:win": "electron-builder --win",
     "build-electron:linux": "electron-builder --linux",
-    "zip": "zip -r steemconnect-chrome.zip www && mv steemconnect-chrome.zip www",
+    "zip": "zip -r hivesigner-chrome.zip www && mv hivesigner-chrome.zip www",
     "publish": "electron-builder build -wml --publish always",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build"
   },
@@ -67,14 +66,15 @@
     "Wiktor Tkaczyński <wiktor.tkaczynski@gmail.com> (https://github.com/Sekhmet)",
     "Johan Nordberg (https://github.com/jnordberg)",
     "Nico Wehmöller (https://github.com/wehmoen)",
-    "Mahdi Yari (https://github.com/mahdiyari)"
+    "Mahdi Yari (https://github.com/mahdiyari)",
+    "Feruz Muradov (https://github.com/feruzm)"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/bonustrack/steemconnect.git"
+    "url": "https://github.com/ledgerconnect/hivesigner.git"
   },
   "bugs": {
-    "url": "https://github.com/bonustrack/steemconnect/issues"
+    "url": "https://github.com/ledgerconnect/hivesigner/issues"
   },
   "browserslist": [
     "> 1%",

@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 
 function API() {
-  this.MESSAGE_TAG = 'STEEMCONNECT_MESSAGE';
+  this.MESSAGE_TAG = 'HIVESIGNER_MESSAGE';
 
-  this.version = '0.1.5';
+  this.version = '0.1.6';
   this.callbacks = {};
 
   window.addEventListener('message', event => {

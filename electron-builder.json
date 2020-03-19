@@ -1,10 +1,10 @@
 {
-  "appId": "com.steemconnect.app",
+  "appId": "com.hivesigner.app",
   "protocols": [
     {
-      "name": "steem",
+      "name": "hive",
       "schemes": [
-        "steem"
+        "hive"
       ]
     }
   ],
@@ -17,8 +17,8 @@
   "publish": [
     {
       "provider": "github",
-      "owner": "bonustrack",
-      "repo": "steemconnect",
+      "owner": "ledgerconnect",
+      "repo": "hivesigner",
       "private": false
     }
   ]

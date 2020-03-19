@@ -91,7 +91,7 @@ export default {
       username: this.$route.params.username,
       authority: getAuthority(this.$route.query.authority, 'posting'),
       callback: this.$route.query.redirect_uri,
-      uri: `steem://revoke/${this.$route.params.username}${buildSearchParams(this.$route)}`,
+      uri: `hive://revoke/${this.$route.params.username}${buildSearchParams(this.$route)}`,
     };
   },
   computed: {

@@ -100,7 +100,7 @@ export default {
       scope: ['login', 'posting'].includes(this.$route.query.scope)
         ? this.$route.query.scope
         : 'login',
-      uri: `steem://login-request/${this.$route.params.clientId}${buildSearchParams(this.$route)}`,
+      uri: `hive://login-request/${this.$route.params.clientId}${buildSearchParams(this.$route)}`,
     };
   },
   computed: {
@@ -126,7 +126,7 @@ export default {
       this.$router.push({
         name: 'authorize',
         params: { username: this.clientId },
-        query: { redirect_uri: this.uri.replace('steem:/', '') },
+        query: { redirect_uri: this.uri.replace('hive:/', '') },
       });
     } else if (this.clientId) {
       this.loadAppProfile();

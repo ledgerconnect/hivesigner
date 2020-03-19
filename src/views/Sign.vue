@@ -84,7 +84,7 @@ export default {
       failed: false,
       error: false,
       isWeb: isWeb(),
-      uri: `steem://sign/${this.$route.params.pathMatch}${buildSearchParams(this.$route)}`,
+      uri: `hive://sign/${this.$route.params.pathMatch}${buildSearchParams(this.$route)}`,
       requestId: this.$route.query[REQUEST_ID_PARAM],
       authority: getAuthority(this.$route.query.authority),
       hasRequiredKey: null,

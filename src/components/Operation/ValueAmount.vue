@@ -22,7 +22,7 @@ export default {
   methods: {
     formatValue(value) {
       if (VESTS_REGEX.test(value)) {
-        return `${formatNumber(parseFloat(value) * this.vestToSP)} SP`;
+        return `${formatNumber(parseFloat(value) * this.vestToSP)} HP`;
       }
       return value;
     },

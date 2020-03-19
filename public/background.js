@@ -57,7 +57,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const requestId = new Date().getTime();
       callbacks[requestId] = sendResponse;
 
-      const payload = request.payload.replace('steem://', '');
+      const payload = request.payload.replace('hive://', '');
       url = `/${payload}${payload.indexOf('?') === -1 ? '?' : '&'}requestId=${requestId}`;
 
       openPopup(requestId);
@@ -79,7 +79,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       return true;
     }
     case 'open': {
-      url = request.payload.replace('steem:/', '');
+      url = request.payload.replace('hive:/', '');
       openPopup();
       return true;
     }
