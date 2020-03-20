@@ -23,7 +23,7 @@
               class="d-block rounded-2 px-3 py-2 bg-primary text-white text-left"
             >
               <span class="iconfont icon-desktop-windows float-right" />
-              Download Desktop app
+              Download Desktop app (coming soon)
             </a>
           </div>
         </div>
