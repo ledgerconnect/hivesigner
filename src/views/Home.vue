@@ -28,8 +28,8 @@
           </div>
         </div>
         <p>
-          With HiveSigner, you're always in control of your private keys: we neither store nor
-          have access to them.
+          With HiveSigner, you're always in control of your private keys: we neither store nor have
+          access to them.
         </p>
       </div>
       <Footer />
@@ -41,7 +41,7 @@
 import pkg from '@/../package.json';
 
 const chromeExtensionUrl =
-  'https://chrome.google.com/webstore/detail/steemconnect/enaifbbcamagcjaaeeaomhofifdgpjcn';
+  'https://chrome.google.com/webstore/detail/hivesigner/ophihnhnfgcmhpbcennhppicomdeabip';
 
 export default {
   data() {

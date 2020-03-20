@@ -28,9 +28,7 @@
           <p>Contributors</p>
           <p :key="i" v-for="(contributor, i) in contributors">
             <a :href="contributor[3]" target="_blank">{{ contributor[1] }}</a>
-            <template v-if="i !== contributors.length - 1"
-              >,
-            </template>
+            <template v-if="i !== contributors.length - 1">, </template>
           </p>
         </div>
       </div>

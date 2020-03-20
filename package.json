@@ -4,6 +4,7 @@
   "description": "Signer app for Hive",
   "homepage": "https://hivesigner.com",
   "main": "electron-entry.js",
+  "author": "Fabien Marino <fabien@bonustrack.co> (https://github.com/bonustrack)",
   "license": "MIT",
   "scripts": {
     "start": "node start.js",
