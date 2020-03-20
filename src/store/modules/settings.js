@@ -19,8 +19,8 @@ const mutations = {
     Vue.set(_state, 'properties', result);
   },
   saveConfig(_state, config) {
-    Vue.set(_state, 'steemAddressPrefix', config.STEEM_ADDRESS_PREFIX);
-    Vue.set(_state, 'chainId', config.STEEM_CHAIN_ID);
+    Vue.set(_state, 'steemAddressPrefix', config.HIVE_ADDRESS_PREFIX);
+    Vue.set(_state, 'chainId', config.HIVE_CHAIN_ID);
   },
   saveSettings(_state, settings) {
     Vue.set(_state, 'language', settings.language || _state.language);
