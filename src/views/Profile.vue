@@ -209,7 +209,7 @@ export default {
           json_metadata: JSON.stringify(metadata),
         },
       ];
-      const uri = encodeOp(op).replace('steem://', '');
+      const uri = encodeOp(op).replace('hive://', '');
       this.$router.push(uri);
     },
   },
