@@ -13,7 +13,7 @@
               class="d-block rounded-2 px-3 py-2 bg-primary text-white text-left"
             >
               <span class="iconfont icon-chrome float-right" />
-              Download extension
+              Download extension (coming soon)
             </a>
           </div>
           <div class="column one-half v-align-middle">
