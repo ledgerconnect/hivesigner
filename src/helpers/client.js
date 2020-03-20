@@ -4,7 +4,7 @@ import * as steemuri from 'steem-uri';
 const CLIENT_OPTIONS = { timeout: 15000 };
 const EXPIRE_TIME = 1000 * 60;
 
-let rawClient = new Client('https://api.hive.blog', CLIENT_OPTIONS);
+let rawClient = new Client('https://rpc.esteem.app', CLIENT_OPTIONS);
 
 const handler = {
   get(target, prop) {
