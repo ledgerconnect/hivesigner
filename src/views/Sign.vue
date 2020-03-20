@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import * as steemuri from 'steem-uri';
+import * as hiveuri from 'hive-uri';
 import { mapActions } from 'vuex';
 import { resolveTransaction } from '@/helpers/client';
 import { getAuthority } from '@/helpers/auth';
@@ -119,7 +119,7 @@ export default {
     parseUri(uri) {
       let parsed;
       try {
-        parsed = steemuri.decode(uri);
+        parsed = hiveuri.decode(uri);
       } catch (err) {
         parsed = legacyUriToParsedSteemUri(uri);
         if (!parsed) {
@@ -173,7 +173,7 @@ export default {
 
       // TODO: Handle Chrome extension & desktop app redirect.
       if (confirmation && this.parsed.params.callback && isWeb()) {
-        window.location = steemuri.resolveCallback(this.parsed.params.callback, {
+        window.location = hiveuri.resolveCallback(this.parsed.params.callback, {
           sig,
           id: confirmation.id || undefined,
           block: confirmation.block_num || undefined,

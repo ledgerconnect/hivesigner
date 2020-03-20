@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import { encodeOp } from 'steem-uri';
+import { encodeOp } from 'hive-uri';
 import { createHash } from 'crypto';
 import { jsonParse } from '@/helpers/utils';
 

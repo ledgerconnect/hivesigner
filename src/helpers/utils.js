@@ -2,7 +2,7 @@
 import { has, snakeCase } from 'lodash';
 import urlParse from 'url-parse';
 import qs from 'query-string';
-import { encodeOps, decode } from 'steem-uri';
+import { encodeOps, decode } from 'hive-uri';
 import operations from '@/helpers/operations.json';
 
 export const REQUEST_ID_PARAM = 'requestId';

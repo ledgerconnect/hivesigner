@@ -1,5 +1,5 @@
 import { Client } from 'dsteem';
-import * as steemuri from 'steem-uri';
+import * as hiveuri from 'hive-uri';
 
 const CLIENT_OPTIONS = { timeout: 15000 };
 const EXPIRE_TIME = 1000 * 60;
@@ -23,7 +23,7 @@ export async function resolveTransaction(parsed, signer) {
   const props = await client.database.getDynamicGlobalProperties();
 
   // resolve the decoded tx and params to a signable tx
-  const { tx } = steemuri.resolveTransaction(parsed.tx, parsed.params, {
+  const { tx } = hiveuri.resolveTransaction(parsed.tx, parsed.params, {
     /* eslint-disable no-bitwise */
     ref_block_num: props.head_block_number & 0xffff,
     ref_block_prefix: Buffer.from(props.head_block_id, 'hex').readUInt32LE(4),
