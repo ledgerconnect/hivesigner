@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { cryptoUtils } from 'dhive';
+import { cryptoUtils } from 'dsteem';
 import client from '@/helpers/client';
 import { credentialsValid, privateKeyFrom } from '@/helpers/auth';
 import router from '@/router';
