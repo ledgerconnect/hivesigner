@@ -92,7 +92,7 @@
           </p>
           <p>
             <b>Token URL</b><br />
-            https://api.hivesigner.com/api/oauth2/token
+            https://hivesigner.com/api/oauth2/token
           </p>
         </div>
         <a
