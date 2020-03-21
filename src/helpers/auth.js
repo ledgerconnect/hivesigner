@@ -1,4 +1,4 @@
-import { PrivateKey } from 'dsteem';
+import { PrivateKey } from '@hivechain/dsteem';
 import * as bs58 from 'bs58';
 import client from './client';
 
