@@ -87,6 +87,30 @@
       }
     }
   },
+  "transfer_from_savings": {
+    "name": "Transfer from saving",
+    "authority": "active",
+    "schema": {
+      "from": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "to": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "amount": {
+        "type": "amount"
+      },
+      "memo": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "requestid": {
+        "type": "int"
+      }
+    }
+  },
   "convert": {
     "name": "Convert",
     "authority": "active",
