@@ -106,7 +106,7 @@
         "type": "string",
         "defaultValue": ""
       },
-      "requestid": {
+      "request_id": {
         "type": "int"
       }
     }
