@@ -202,11 +202,12 @@ export default {
       metadata = { ...metadata, profile };
 
       const op = [
-        'account_update',
+        'account_update2',
         {
           account: this.account.name,
           memo_key: this.account.memo_key,
           json_metadata: JSON.stringify(metadata),
+          posting_json_metadata: JSON.stringify(metadata),
         },
       ];
       const uri = encodeOp(op).replace('hive://', '');
