@@ -391,7 +391,7 @@
   },
   "account_update2": {
     "name": "Update account",
-    "authority": "posting",
+    "authority": "active",
     "schema": {
       "account": {
         "type": "account",
@@ -405,6 +405,27 @@
       },
       "posting_json_metadata": {
         "type": "json"
+      },
+      "extensions": {
+        "type": "array",
+        "defaultValue": []
+      }
+    }
+  },
+  "change_recovery_account": {
+    "name": "Change recovery account",
+    "authority": "owner",
+    "schema": {
+      "account_to_recover": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "new_recovery_account": {
+        "type": "string"
+      },
+      "extensions": {
+        "type": "array",
+        "defaultValue": []
       }
     }
   },
