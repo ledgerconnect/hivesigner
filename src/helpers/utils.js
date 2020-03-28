@@ -152,9 +152,11 @@ export function getLowestAuthorityRequired(tx) {
   let authority;
   tx.operations.forEach(operation => {
     if (operations[operation[0]] && operations[operation[0]].authority) {
+      if (operations[operation[0]].authority === 'owner') authority = 'owner';
       if (operations[operation[0]].authority === 'active') authority = 'active';
-      if (operations[operation[0]].authority === 'posting' && authority !== 'active')
+      if (operations[operation[0]].authority === 'posting' && authority !== 'active') {
         authority = 'posting';
+      }
     }
   });
   return authority;

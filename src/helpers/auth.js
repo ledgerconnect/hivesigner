@@ -84,11 +84,12 @@ export async function getKeys(username, password) {
 
     return keys;
   }
-
+  const ownerKey = PrivateKey.fromLogin(username, password, 'owner');
   const activeKey = PrivateKey.fromLogin(username, password, 'active');
   const postingKey = PrivateKey.fromLogin(username, password, 'posting');
   const memoKey = PrivateKey.fromLogin(username, password, 'memo');
 
+  keys.owner = ownerKey.toString();
   keys.active = activeKey.toString();
   keys.posting = postingKey.toString();
 
@@ -100,5 +101,5 @@ export async function getKeys(username, password) {
 }
 
 export function getAuthority(str, fallback) {
-  return ['active', 'posting'].includes(str) ? str : fallback;
+  return ['owner', 'active', 'posting'].includes(str) ? str : fallback;
 }

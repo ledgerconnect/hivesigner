@@ -421,7 +421,7 @@
         "defaultValue": "__signer"
       },
       "new_recovery_account": {
-        "type": "string"
+        "type": "account"
       },
       "extensions": {
         "type": "array",
