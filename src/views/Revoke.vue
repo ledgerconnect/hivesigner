@@ -14,8 +14,8 @@
               <h4 class="mb-0 mt-2">{{ username }}</h4>
             </div>
             <p>
-              Do you want to update your account to revoke <b>{{ username }}</b> to do
-              <b>{{ authority }}</b> operations on your behalf?
+              By clicking "Continue" you are revoking <b>{{ authority }}</b> authority from <b>{{ username }}</b>. 
+              Going forward <b>{{ username }}</b> will not be able to perform actions on your behalf.
             </p>
             <div class="flash flash-warn mt-4" v-if="account.name && hasRequiredKey === false">
               This transaction requires your <b>active</b> key.
