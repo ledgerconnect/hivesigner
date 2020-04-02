@@ -39,7 +39,8 @@ const requireAuth = (to, from, next, params) => {
 const beforeLogin = (to, from, next) => {
   if (!hasAccounts()) {
     const redirect = to.query.redirect === '/' ? undefined : to.query.redirect;
-    next({ name: 'import', query: { redirect } });
+    const authority = to.query.authority || undefined;
+    next({ name: 'import', query: { redirect, authority } });
   } else {
     next();
   }

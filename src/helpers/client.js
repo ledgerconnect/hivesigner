@@ -1,4 +1,4 @@
-import { Client } from '@hivechain/dsteem';
+import { Client } from '@hivechain/dhive';
 import * as hiveuri from 'hive-uri';
 
 const CLIENT_OPTIONS = { timeout: 15000 };

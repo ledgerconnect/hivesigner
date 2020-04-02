@@ -43,7 +43,7 @@ export function getVestsToSP(properties) {
   );
 }
 
-export function legacyUriToParsedSteemUri(uri) {
+export function legacyToHiveUri(uri) {
   let parsed;
   try {
     const url = urlParse(uri);

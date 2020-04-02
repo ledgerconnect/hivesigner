@@ -60,7 +60,7 @@ import {
   isWeb,
   isChromeExtension,
   getVestsToSP,
-  legacyUriToParsedSteemUri,
+  legacyToHiveUri,
   getLowestAuthorityRequired,
   processTransaction,
   buildSearchParams,
@@ -115,7 +115,7 @@ export default {
       try {
         parsed = hiveuri.decode(uri);
       } catch (err) {
-        parsed = legacyUriToParsedSteemUri(uri);
+        parsed = legacyToHiveUri(uri);
         if (!parsed) {
           this.uriIsValid = false;
         }
