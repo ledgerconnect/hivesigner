@@ -5,7 +5,6 @@
       <Header :title="`Log in request (${authority})`" />
       <div v-if="!failed" class="p-4 after-header">
         <div class="container-sm mx-auto">
-          <OpenExternal v-if="isWeb && !failed && !signature" :uri="uri" class="hide-sm" />
           <div v-if="!failed && !signature">
             <div class="mb-4">
               <div class="mb-4 text-center" v-if="app && appProfile">
@@ -62,7 +61,6 @@ import client from '@/helpers/client';
 import {
   isWeb,
   isChromeExtension,
-  isElectron,
   buildSearchParams,
   signComplete,
   isValidUrl,
@@ -70,12 +68,6 @@ import {
   b64uEnc,
 } from '@/helpers/utils';
 import { getAuthority } from '@/helpers/auth';
-
-let openExternal = null;
-if (typeof window !== 'undefined' && window.require) {
-  // eslint-disable-next-line prefer-destructuring
-  openExternal = window.require('electron').shell.openExternal;
-}
 
 export default {
   data() {
@@ -181,12 +173,7 @@ export default {
           if (this.responseType !== 'code') callback += '&expires_in=604800';
           if (this.state) callback += `&state=${encodeURIComponent(this.state)}`;
 
-          if (isElectron()) {
-            openExternal(callback);
-            this.$router.push('/');
-          } else {
-            window.location = callback;
-          }
+          window.location = callback;
         }
       } catch (err) {
         console.error('Failed to log in', err);

@@ -3,11 +3,6 @@
     <Header title="Revoke (active)" />
     <div class="p-4 after-header">
       <div class="container-sm mx-auto">
-        <OpenExternal
-          v-if="hasAuthority && isWeb && !failed && !transactionId"
-          :uri="uri"
-          class="hide-sm"
-        />
         <form
           v-if="hasAuthority && !failed && !transactionId"
           @submit.prevent="handleSubmit"

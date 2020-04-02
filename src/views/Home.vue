@@ -1,35 +1,22 @@
 <template>
   <div class="hero height-full">
     <Center>
-      <span class="logo iconfont icon-steemconnect" />
+      <span class="logo iconfont icon-hivesigner" />
       <h4 class="m-0">hivesigner</h4>
       <div class="mt-4 mb-7">
         <h1 class="mb-6">You're in control of your keys.</h1>
-        <div class="columns mb-6 hide-sm">
-          <div class="column one-half v-align-middle">
-            <a
-              :href="chromeExtensionUrl"
-              target="_blank"
-              class="d-block rounded-2 px-3 py-2 bg-primary text-white text-left"
-            >
-              <span class="iconfont icon-chrome float-right" />
-              Download extension (coming soon)
-            </a>
-          </div>
-          <div class="column one-half v-align-middle">
-            <a
-              :href="pkg.repository.url.replace('.git', '/releases')"
-              target="_blank"
-              class="d-block rounded-2 px-3 py-2 bg-primary text-white text-left"
-            >
-              <span class="iconfont icon-desktop-windows float-right" />
-              Download Desktop app (coming soon)
-            </a>
-          </div>
+        <div class="mb-6 hide-sm">
+          <a
+            :href="chromeExtensionUrl"
+            target="_blank"
+            class="rounded-2 px-3 py-3 bg-primary text-white button-link"
+          >
+            <span class="iconfont icon-chrome" />
+            Download extension
+          </a>
         </div>
         <p>
-          With HiveSigner, you're always in control of your private keys: we neither store nor have
-          access to them.
+          Hivesigner neither store nor has access to your private keys.
         </p>
       </div>
       <Footer />
@@ -56,6 +43,7 @@ export default {
 <style scoped lang="less">
 .icon-chrome,
 .icon-desktop-windows {
-  font-size: 32px;
+  font-size: 28px;
+  vertical-align: -4px;
 }
 </style>

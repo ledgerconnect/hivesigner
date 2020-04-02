@@ -1,13 +1,13 @@
 <template>
   <Center>
     <router-link to="/" class="d-inline-block my-2 no-decoration">
-      <span class="logo iconfont icon-steemconnect" />
+      <span class="logo iconfont icon-hivesigner" />
       <h4 class="m-0">hivesigner</h4>
     </router-link>
     <div class="width-full p-4 mb-2">
       <form @submit.prevent="submitForm" method="post" class="text-left">
         <div v-if="step === 1">
-          <label for="username">Hive username</label>
+          <label for="username">Username</label>
           <div v-if="dirty.username && !!errors.username" class="error mb-2">
             {{ errors.username }}
           </div>
@@ -22,7 +22,7 @@
             autocomplete="username"
             @blur="handleBlur('username')"
           />
-          <label for="password"> Hive password or {{ authority || 'private' }} key </label>
+          <label for="password"> Password or {{ authority || 'private' }} key </label>
           <div v-if="dirty.password && !!errors.password" class="error mb-2">
             {{ errors.password }}
           </div>
@@ -39,7 +39,7 @@
           />
           <label class="mb-2" :class="{ 'mb-4': !error }">
             <input key="storeAccount" v-model="storeAccount" type="checkbox" /> Keep the account on
-            this computer
+            this device
           </label>
           <div v-if="!!error" class="error mb-4">{{ error }}</div>
           <button
@@ -52,7 +52,7 @@
         </div>
         <div v-if="step === 2">
           <label for="key">
-            Keychain password
+            Keystore password
             <span
               class="tooltipped tooltipped-n tooltipped-multiline"
               :aria-label="TOOLTIP_IMPORT_ENCRYPTION_KEY"
@@ -90,7 +90,7 @@
             @blur="handleBlur('keyConfirmation')"
           />
           <legend class="mb-4 d-block">
-            The keychain password will be required to unlock your account for usage.
+            The keystore password will be required to unlock your account for usage.
           </legend>
           <button
             :disabled="submitDisabled || isLoading"
@@ -208,16 +208,16 @@ export default {
       }
 
       if (!key) {
-        current.key = 'Keychain password is required.';
+        current.key = 'Keystore password is required.';
       } else if (!passphraseSchema.validate(key)) {
         current.key =
-          'Keychain password has to be at least 8 characters long and contain lowercase letter and uppercase letter.';
+          'Keystore password has to be at least 8 characters long and contain lowercase letter and uppercase letter.';
       }
 
       if (!keyConfirmation) {
-        current.keyConfirmation = 'Keychain password confirmation is required.';
+        current.keyConfirmation = 'Keystore password confirmation is required.';
       } else if (keyConfirmation !== key) {
-        current.keyConfirmation = 'Keychain passwords do not match.';
+        current.keyConfirmation = 'Keystore passwords do not match.';
       }
 
       return current;

@@ -3,7 +3,7 @@
     <div class="apps-hero text-center">
       <div class="mx-auto py-5 container-sm">
         <router-link to="/">
-          <span class="logo iconfont icon-steemconnect" />
+          <span class="logo iconfont icon-hivesigner" />
         </router-link>
         <div class="mt-4 mb-7">
           <h1 class="mb-6">App store</h1>

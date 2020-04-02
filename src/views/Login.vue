@@ -1,12 +1,12 @@
 <template>
   <Center>
     <router-link to="/" class="d-inline-block my-2 no-decoration">
-      <span class="logo iconfont icon-steemconnect" />
+      <span class="logo iconfont icon-hivesigner" />
       <h4 class="m-0">hivesigner</h4>
     </router-link>
     <div class="width-full p-4 mb-2">
       <form @submit.prevent="submitForm" method="post" class="text-left">
-        <label for="username">Hive username</label>
+        <label for="username">Username</label>
         <div v-if="dirty.username && !!errors.username" class="error mb-2">
           {{ errors.username }}
         </div>
@@ -24,7 +24,7 @@
           </option>
         </select>
         <label for="password">
-          Keychain password
+          Keystore password
           <span
             class="tooltipped tooltipped-n tooltipped-multiline"
             :aria-label="TOOLTIP_LOGIN_ENCRYPTION_KEY"
@@ -122,7 +122,7 @@ export default {
       }
 
       if (!key) {
-        current.key = 'Keychain password is required.';
+        current.key = 'Keystore password is required.';
       }
 
       return current;

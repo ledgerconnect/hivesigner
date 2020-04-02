@@ -29,7 +29,7 @@
         </div>
         <div v-else>
           <p>
-            There isn't any account stored on this computer,
+            There isn't any account stored on this device,
             <router-link to="/import">click here</router-link>
             if you want to import an account.
           </p>

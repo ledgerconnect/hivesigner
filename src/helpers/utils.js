@@ -7,12 +7,10 @@ import operations from '@/helpers/operations.json';
 
 export const REQUEST_ID_PARAM = 'requestId';
 
-export const isElectron = () => navigator.userAgent.toLowerCase().indexOf('electron') > -1;
-
 export const isChromeExtension = () =>
   window.chrome && window.chrome.runtime && window.chrome.runtime.id;
 
-export const isWeb = () => !isChromeExtension() && !isElectron();
+export const isWeb = () => !isChromeExtension();
 
 export function jsonParse(input, fallback) {
   try {
