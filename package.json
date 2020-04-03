@@ -1,6 +1,6 @@
 {
   "name": "hivesigner-ui",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Signer app for Hive",
   "homepage": "https://hivesigner.com",
   "main": "electron-entry.js",

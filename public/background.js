@@ -57,7 +57,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const requestId = new Date().getTime();
       callbacks[requestId] = sendResponse;
 
-      const payload = request.payload.replace('hive://', '');
+      const payload = request.payload.replace('hive://', '').replace('steem://', '');
       url = `/${payload}${payload.indexOf('?') === -1 ? '?' : '&'}requestId=${requestId}`;
 
       openPopup(requestId);
