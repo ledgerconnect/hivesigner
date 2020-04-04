@@ -53,6 +53,26 @@
       }
     }
   },
+  "set_withdraw_vesting_route": {
+    "name": "Set withdraw vesting route",
+    "authority": "active",
+    "schema": {
+      "from_account": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "to_account": {
+        "type": "account"
+      },
+      "percent": {
+        "type": "int"
+      },
+      "auto_vest": {
+        "type": "bool",
+        "defaultValue": false
+      }
+    }
+  },
   "withdraw_vesting": {
     "name": "Power down",
     "authority": "active",
