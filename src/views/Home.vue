@@ -16,7 +16,7 @@
           </a>
         </div>
         <p>
-          Hivesigner neither store nor has access to your private keys.
+          Hivesigner neither stores nor has access to your private keys.
         </p>
       </div>
       <Footer />

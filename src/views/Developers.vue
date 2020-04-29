@@ -115,7 +115,12 @@
             </a>
           </p>
           <p>
-            <a href="https://discord.gg/v52akSX" target="_blank">
+            <a href="https://hive.hivesigner.com" target="_blank">
+              <span class="iconfont icon-bookmark" /> Try interactive Hive API
+            </a>
+          </p>
+          <p>
+            <a href="https://discord.gg/pNJn7wh" target="_blank">
               <span class="iconfont icon-discord" /> Join us on Discord
             </a>
           </p>

@@ -14,9 +14,10 @@
               <h4 class="mb-0 mt-2">{{ username }}</h4>
             </div>
             <p>
-              The <b>{{ username }}</b> requires your <b>{{ authority }}</b> authority in order for you 
-              to be able to interact with it. By clicking "Continue" you are allowing {{ authority }} access.
-              This can be withdrawn by you at any time by clicking <a :href="'https://hivesigner.com/revoke/' + username" target="_blank">HERE</a>.
+              The <b>{{ username }}</b> requires your <b>{{ authority }}</b> authority in order for
+              you to be able to interact with it. By clicking "Continue" you are allowing
+              {{ authority }} access. This can be withdrawn by you at any time by clicking
+              <a :href="'https://hivesigner.com/revoke/' + username" target="_blank">HERE</a>.
             </p>
             <div class="flash flash-error mt-4" v-if="authority === 'active'">
               Giving active authority enables the authorized account to do fund transfers from your
