@@ -16,7 +16,8 @@
       },
       "memo": {
         "type": "string",
-        "defaultValue": ""
+        "defaultValue": "",
+        "maxLength": 2048
       }
     }
   },
@@ -103,7 +104,8 @@
       },
       "memo": {
         "type": "string",
-        "defaultValue": ""
+        "defaultValue": "",
+        "maxLength": 2048
       }
     }
   },
@@ -124,7 +126,8 @@
       },
       "memo": {
         "type": "string",
-        "defaultValue": ""
+        "defaultValue": "",
+        "maxLength": 2048
       },
       "request_id": {
         "type": "int"

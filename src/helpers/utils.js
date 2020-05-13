@@ -72,7 +72,7 @@ export function legacyToHiveUri(uri) {
 }
 
 function processValue(schema, key, value, { vestsToSP }) {
-  const { type, defaultValue } = schema[key];
+  const { type, defaultValue, maxLength } = schema[key];
   const realValue = !value && typeof defaultValue !== 'undefined' ? defaultValue : value;
   switch (type) {
     case 'amount':
@@ -86,6 +86,9 @@ function processValue(schema, key, value, { vestsToSP }) {
       return parseInt(realValue, 10);
     case 'bool':
       if (value === 'false' || value === false) return false;
+      return realValue;
+    case 'string':
+      if (maxLength) return realValue.substring(0, Math.min(realValue.length, maxLength - 1));
       return realValue;
     default:
       return realValue;
