@@ -27,7 +27,7 @@
             name="profile_image"
             type="text"
             class="form-control input-lg input-block mb-2"
-            maxlength="64"
+            maxlength="256"
           />
           <label for="cover_image">Cover image URL</label>
           <input
@@ -36,7 +36,7 @@
             name="cover_image"
             type="text"
             class="form-control input-lg input-block mb-2"
-            maxlength="64"
+            maxlength="256"
           />
           <label for="about">About</label>
           <textarea
