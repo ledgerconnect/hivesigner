@@ -1,4 +1,4 @@
-import { PrivateKey } from '@hivechain/dhive';
+import { PrivateKey } from '@hiveio/dhive';
 import * as bs58 from 'bs58';
 import client from './client';
 
