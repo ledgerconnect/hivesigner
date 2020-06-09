@@ -96,12 +96,22 @@ export default new Router({
     {
       path: '/login-request',
       name: 'login-request',
-      component: LoginRequest,
+      redirect: to => ({
+        name: 'login',
+        query: {
+          redirect: to.fullPath,
+        },
+      }),
     },
     {
       path: '/login-request/:clientId',
       name: 'login-request-app',
-      component: LoginRequest,
+      redirect: to => ({
+        name: 'login',
+        query: {
+          redirect: to.fullPath,
+        },
+      }),
     },
     {
       path: '/sign/*',
