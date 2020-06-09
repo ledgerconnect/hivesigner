@@ -66,7 +66,7 @@
           </option>
         </select>
         <label for="password">
-          Keystore password
+          Hivesigner password
           <span
             class="tooltipped tooltipped-n tooltipped-multiline"
             :aria-label="TOOLTIP_LOGIN_ENCRYPTION_KEY"
@@ -231,7 +231,7 @@ export default {
       }
 
       if (!key) {
-        current.key = 'Keystore password is required.';
+        current.key = 'Hivesigner password is required.';
       }
 
       return current;

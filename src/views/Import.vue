@@ -64,7 +64,7 @@
             autocomplete="username"
             @blur="handleBlur('username')"
           />
-          <label for="password"> Password or {{ authority || 'private' }} key </label>
+          <label for="password"> Master password or {{ authority || 'private' }} key </label>
           <div v-if="dirty.password && !!errors.password" class="error mb-2">
             {{ errors.password }}
           </div>
@@ -94,7 +94,7 @@
         </div>
         <div v-if="step === 2">
           <label for="key">
-            Keystore password
+            Hivesigner password
             <span
               class="tooltipped tooltipped-n tooltipped-multiline"
               :aria-label="TOOLTIP_IMPORT_ENCRYPTION_KEY"
@@ -132,7 +132,8 @@
             @blur="handleBlur('keyConfirmation')"
           />
           <legend class="mb-4 d-block">
-            The keystore password will be required to unlock your account for usage.
+            The hivesigner password will be required to unlock your account for usage.
+            {{ TOOLTIP_IMPORT_ENCRYPTION_KEY }}
           </legend>
           <button
             :disabled="submitDisabled || isLoading"
@@ -285,16 +286,16 @@ export default {
       }
 
       if (!key) {
-        current.key = 'Keystore password is required.';
+        current.key = 'Hivesigner password is required.';
       } else if (!passphraseSchema.validate(key)) {
         current.key =
-          'Keystore password has to be at least 8 characters long and contain lowercase letter and uppercase letter.';
+          'Hivesigner password has to be at least 8 characters long, contain lowercase letter and uppercase letter.';
       }
 
       if (!keyConfirmation) {
-        current.keyConfirmation = 'Keystore password confirmation is required.';
+        current.keyConfirmation = 'Hivesigner password confirmation is required.';
       } else if (keyConfirmation !== key) {
-        current.keyConfirmation = 'Keystore passwords do not match.';
+        current.keyConfirmation = 'Hivesigner passwords do not match.';
       }
 
       return current;
