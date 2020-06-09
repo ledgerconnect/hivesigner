@@ -12,13 +12,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit",
-    "start-electron": "electron .",
-    "build-electron": "electron-builder build -wml",
-    "build-electron:mac": "electron-builder --mac",
-    "build-electron:win": "electron-builder --win",
-    "build-electron:linux": "electron-builder --linux",
     "zip": "zip -r hivesigner-chrome.zip www && mv hivesigner-chrome.zip www",
-    "publish": "electron-builder build -wml --publish always",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
@@ -53,8 +47,6 @@
     "@vue/test-utils": "^1.0.0-beta.29",
     "babel-core": "^6.26.3",
     "babel-jest": "^24.5.0",
-    "electron": "^4.1.0",
-    "electron-builder": "^20.40.2",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
     "less": "^3.9.0",

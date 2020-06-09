@@ -18,6 +18,6 @@ npm run serve
 # Build for production
 npm run build
 
-# Build desktop apps
-npm run build-electron
+# Wrap extension
+npm run zip
 ```
