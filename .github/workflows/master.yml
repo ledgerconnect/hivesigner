@@ -1,10 +1,8 @@
-name: CI/CD
-
+name: Master CI/CD
 on:
   push:
     branches:
-      - development
-
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,12 +33,13 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
         script: |
-          cd ~/hivesigner
-          git pull origin development
+          cd ~/hsproduction
+          git pull origin master
           npm install
           npm run build
-          pm2 restart staging
+          pm2 restart master
       env:
         BROADCAST_URL: ${{secrets.BROADCAST_URL}}
         BROADCASTER_USERNAME: ${{secrets.BROADCASTER_USERNAME}}
         BROADCASTER_POSTING_WIF: ${{secrets.BROADCASTER_POSTING_WIF}}
+      
