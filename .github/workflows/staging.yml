@@ -34,12 +34,13 @@ jobs:
         BROADCAST_URL: ${{secrets.BROADCAST_URL}}
         BROADCASTER_USERNAME: ${{secrets.BROADCASTER_USERNAME}}
         BROADCASTER_POSTING_WIF: ${{secrets.BROADCASTER_POSTING_WIF}}
+        STAGING_PORT: ${{secrets.STAGING_PORT}}
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        envs: BROADCAST_URL,BROADCASTER_USERNAME,BROADCASTER_POSTING_WIF
+        envs: BROADCAST_URL,BROADCASTER_USERNAME,BROADCASTER_POSTING_WIF,STAGING_PORT
         script: |
           cd ~/hsstaging
           git pull origin development
