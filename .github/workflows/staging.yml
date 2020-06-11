@@ -25,7 +25,7 @@ jobs:
         CI: true
 
   deploy:
-    needs: [build]
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: SSH and deploy node app
