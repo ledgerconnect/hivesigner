@@ -10,7 +10,7 @@ jobs:
       matrix:
         node-version: [8.x, 10.x, 12.x]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -21,24 +21,28 @@ jobs:
         npm run build --if-present
         npm run lint --if-present
         npm run test --if-present
+      env:
+        CI: true
+
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
     - name: SSH and deploy node app
       uses: appleboy/ssh-action@master
+      env:
+        BROADCAST_URL: ${{secrets.BROADCAST_URL}}
+        BROADCASTER_USERNAME: ${{secrets.BROADCASTER_USERNAME}}
+        BROADCASTER_POSTING_WIF: ${{secrets.BROADCASTER_POSTING_WIF}}
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
+        envs: BROADCAST_URL,BROADCASTER_USERNAME,BROADCASTER_POSTING_WIF
         script: |
           cd ~/hsstaging
           git pull origin development
           npm install
           npm run build
           pm2 restart staging
-      env:
-        BROADCAST_URL: ${{secrets.BROADCAST_URL}}
-        BROADCASTER_USERNAME: ${{secrets.BROADCASTER_USERNAME}}
-        BROADCASTER_POSTING_WIF: ${{secrets.BROADCASTER_POSTING_WIF}}
