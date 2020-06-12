@@ -11,7 +11,10 @@ const DEFAULT_SERVER = [
   'https://api.hivekings.com',
 ];
 
-let rawClient = new Client([process.env.BROADCAST_URL||"https://api.hive.blog", ...DEFAULT_SERVER], CLIENT_OPTIONS);
+let rawClient = new Client(
+  [process.env.BROADCAST_URL || 'https://api.hive.blog', ...DEFAULT_SERVER],
+  CLIENT_OPTIONS,
+);
 
 const handler = {
   get(target, prop) {
