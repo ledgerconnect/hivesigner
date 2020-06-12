@@ -1,9 +1,51 @@
 <template>
   <Center>
-    <router-link to="/" class="d-inline-block my-2 no-decoration">
+    <router-link
+      to="/"
+      class="d-inline-block my-2 no-decoration"
+      v-if="
+        redirected == '/auths' ||
+          redirected == '/profile' ||
+          redirected == '/import' ||
+          redirected.includes('/authorize') ||
+          redirected.includes('/sign') ||
+          redirected.includes('/revoke')
+      "
+    >
       <span class="logo iconfont icon-hivesigner" />
       <h4 class="m-0">hivesigner</h4>
     </router-link>
+    <div
+      v-if="
+        !failed &&
+          redirected != '/auths' &&
+          redirected != '/profile' &&
+          redirected != '/import' &&
+          !redirected.includes('/authorize') &&
+          !redirected.includes('/sign') &&
+          !redirected.includes('/revoke')
+      "
+      class="p-4 after-header"
+    >
+      <div class="container-sm mx-auto">
+        <div v-if="!failed && !signature">
+          <div class="mb-4 text-center" v-if="app && appProfile">
+            <Avatar :username="app" :size="80" />
+            <div class="mt-2">
+              <h4 v-if="appProfile.name" class="mb-0">{{ appProfile.name }}</h4>
+              <span v-if="appProfile.website">{{ appProfile.website | parseUrl }}</span>
+            </div>
+          </div>
+          <p>
+            <span v-if="app"
+              >The app <b>{{ app }}</b></span
+            >
+            <span v-else>This site </span>
+            is requesting access to view your current account username.
+          </p>
+        </div>
+      </div>
+    </div>
     <div class="width-full p-4 mb-2">
       <form @submit.prevent="submitForm" method="post" class="text-left">
         <div v-if="step === 1">
@@ -22,7 +64,7 @@
             autocomplete="username"
             @blur="handleBlur('username')"
           />
-          <label for="password"> Password or {{ authority || 'private' }} key </label>
+          <label for="password"> Master password or {{ authority || 'private' }} key </label>
           <div v-if="dirty.password && !!errors.password" class="error mb-2">
             {{ errors.password }}
           </div>
@@ -52,7 +94,7 @@
         </div>
         <div v-if="step === 2">
           <label for="key">
-            Keystore password
+            Hivesigner password
             <span
               class="tooltipped tooltipped-n tooltipped-multiline"
               :aria-label="TOOLTIP_IMPORT_ENCRYPTION_KEY"
@@ -90,7 +132,8 @@
             @blur="handleBlur('keyConfirmation')"
           />
           <legend class="mb-4 d-block">
-            The keystore password will be required to unlock your account for usage.
+            The hivesigner password will be required to unlock your account for usage.
+            {{ TOOLTIP_IMPORT_ENCRYPTION_KEY }}
           </legend>
           <button
             :disabled="submitDisabled || isLoading"
@@ -109,6 +152,7 @@
         </router-link>
       </form>
     </div>
+    <VueLoadingIndicator v-if="loading" class="overlay fixed big" />
     <Footer />
   </Center>
 </template>
@@ -120,7 +164,16 @@ import PasswordValidator from 'password-validator';
 import { credentialsValid, getKeys, getAuthority } from '@/helpers/auth';
 import { addToKeychain, hasAccounts } from '@/helpers/keychain';
 import { ERROR_INVALID_CREDENTIALS, TOOLTIP_IMPORT_ENCRYPTION_KEY } from '@/helpers/messages.json';
-import { isWeb } from '@/helpers/utils';
+import {
+  isWeb,
+  isChromeExtension,
+  buildSearchParams,
+  signComplete,
+  isValidUrl,
+  REQUEST_ID_PARAM,
+  b64uEnc,
+} from '@/helpers/utils';
+import client from '@/helpers/client';
 
 const passphraseSchema = new PasswordValidator();
 
@@ -147,8 +200,30 @@ export default {
       storeAccount: !isWeb(),
       isLoading: false,
       redirect: this.$route.query.redirect,
-      authority: getAuthority(this.$route.query.authority),
+      redirected: '',
       TOOLTIP_IMPORT_ENCRYPTION_KEY,
+
+      showLoading: false,
+      loading: false,
+      failed: false,
+      signature: null,
+      errorMessage: '',
+      isWeb: isWeb(),
+      requestId: this.$route.query[REQUEST_ID_PARAM],
+      authority: getAuthority(this.$route.query.authority, 'posting'),
+      isChrome: isChromeExtension(),
+      clientId: this.$route.params.clientId || this.$route.query.client_id,
+      app: null,
+      appProfile: {},
+      callback: this.$route.query.redirect_uri,
+      responseType: ['code', 'token'].includes(this.$route.query.response_type)
+        ? this.$route.query.response_type
+        : 'token',
+      state: this.$route.query.state,
+      scope: ['login', 'posting'].includes(this.$route.query.scope)
+        ? this.$route.query.scope
+        : 'login',
+      uri: `hive://login-request/${this.$route.params.clientId}${buildSearchParams(this.$route)}`,
     };
   },
   computed: {
@@ -192,6 +267,9 @@ export default {
         this.$store.commit('saveImportKeyConfirmation', value);
       },
     },
+    username_pre() {
+      return this.$store.state.auth.username;
+    },
     hasAccounts() {
       return hasAccounts();
     },
@@ -208,16 +286,16 @@ export default {
       }
 
       if (!key) {
-        current.key = 'Keystore password is required.';
+        current.key = 'Hivesigner password is required.';
       } else if (!passphraseSchema.validate(key)) {
         current.key =
-          'Keystore password has to be at least 8 characters long and contain lowercase letter and uppercase letter.';
+          'Hivesigner password has to be at least 8 characters long, contain lowercase letter and uppercase letter.';
       }
 
       if (!keyConfirmation) {
-        current.keyConfirmation = 'Keystore password confirmation is required.';
+        current.keyConfirmation = 'Hivesigner password confirmation is required.';
       } else if (keyConfirmation !== key) {
-        current.keyConfirmation = 'Keystore passwords do not match.';
+        current.keyConfirmation = 'Hivesigner passwords do not match.';
       }
 
       return current;
@@ -232,8 +310,79 @@ export default {
       return !!this.errors.key || !!this.errors.keyConfirmation;
     },
   },
+  mounted() {
+    this.redirected = this.$route.query.redirect || '';
+    if (
+      this.$route.fullPath === '/import' ||
+      this.$route.fullPath === '/import?authority=posting'
+    ) {
+      this.redirected = '/import';
+    }
+
+    const url = this.getJsonFromUrl().redirect;
+    if (url) {
+      const params = `?${url.split('?')[0]}`;
+      const query = this.getJsonFromUrl(`?${url.split('?').pop()}`);
+      this.callback = query.redirect_uri;
+      this.responseType = ['code', 'token'].includes(query.response_type)
+        ? query.response_type
+        : 'token';
+      this.state = query.state;
+      this.scope = ['login', 'posting'].includes(query.scope) ? query.scope : 'login';
+      this.clientId = params.split('/').pop() || query.client_id;
+    }
+    if (
+      this.scope === 'posting' &&
+      !isChromeExtension() &&
+      this.clientId &&
+      this.username_pre &&
+      !this.hasAuthority
+    ) {
+      this.$router.push({
+        name: 'authorize',
+        params: { username: this.clientId },
+        query: { redirect_uri: this.uri.replace('hive:/', '') },
+      });
+    } else if (this.clientId) {
+      this.loadAppProfile();
+    }
+  },
   methods: {
     ...mapActions(['login']),
+    ...mapActions(['signMessage']),
+    getJsonFromUrl(url) {
+      let theUrl = url;
+      if (!theUrl) theUrl = window.location.search;
+      const query = theUrl.substr(1);
+      const result = {};
+      query.split('&').forEach(part => {
+        const item = part.split('=');
+        result[item[0]] = decodeURIComponent(item[1]);
+      });
+      return result;
+    },
+    async loadAppProfile() {
+      this.showLoading = true;
+      const app = this.clientId;
+      const accounts = await client.database.getAccounts([app]);
+      if (accounts[0]) {
+        this.app = app;
+        try {
+          this.appProfile = JSON.parse(accounts[0].json_metadata).profile;
+          if (
+            !isChromeExtension() &&
+            (!this.appProfile.redirect_uris.includes(this.callback) || !isValidUrl(this.callback))
+          ) {
+            this.failed = true;
+          }
+        } catch (e) {
+          console.log('Failed to parse app account', e);
+        }
+      } else {
+        this.failed = true;
+      }
+      this.showLoading = false;
+    },
     resetForm() {
       this.dirty = {
         username: false,
@@ -263,14 +412,53 @@ export default {
         return;
       }
 
-      this.login({ username, keys })
-        .then(() => {
-          const { redirect } = this.$route.query;
-          this.$router.push(redirect || '/');
-          this.isLoading = false;
-          this.error = '';
+      this.loading = true;
+      this.showLoading = true;
 
-          this.resetForm();
+      this.login({ username, keys })
+        .then(async () => {
+          if (this.redirected !== '' && !this.redirected.includes('/login-request')) {
+            const { redirect } = this.$route.query;
+            this.$router.push(redirect || '/');
+            this.error = '';
+            this.isLoading = false;
+            this.resetForm();
+          } else {
+            try {
+              const loginObj = {};
+              loginObj.type = isChromeExtension() ? 'login' : this.scope;
+              if (this.responseType === 'code') loginObj.type = 'code';
+              if (this.app) loginObj.app = this.app;
+              const signedMessageObj = await this.signMessage({
+                message: loginObj,
+                authority: this.authority,
+              });
+              [this.signature] = signedMessageObj.signatures;
+              const token = b64uEnc(JSON.stringify(signedMessageObj));
+              if (this.requestId) {
+                signComplete(this.requestId, null, token);
+              }
+              if (!isChromeExtension()) {
+                let { callback } = this;
+                callback +=
+                  this.responseType === 'code' ? `?code=${token}` : `?access_token=${token}`;
+                callback += `&username=${this.username}`;
+                if (this.responseType !== 'code') callback += '&expires_in=604800';
+                if (this.state) callback += `&state=${encodeURIComponent(this.state)}`;
+
+                window.location = callback;
+              }
+            } catch (err) {
+              console.error('Failed to log in', err);
+              this.signature = '';
+              this.failed = true;
+              if (this.requestId) {
+                signComplete(this.requestId, err, null);
+              }
+              this.loading = false;
+              this.showLoading = false;
+            }
+          }
         })
         .catch(err => {
           console.log('Login failed', err);

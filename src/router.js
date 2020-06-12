@@ -9,8 +9,7 @@ const Import = () => import(/* webpackChunkName: "import" */ '@/views/Import.vue
 const Login = () => import(/* webpackChunkName: "login" */ '@/views/Login.vue');
 const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue');
 const Auths = () => import(/* webpackChunkName: "auths" */ '@/views/Auths.vue');
-const LoginRequest = () =>
-  import(/* webpackChunkName: "login-request" */ '@/views/LoginRequest.vue');
+// const LoginRequest = () => import(/* webpackChunkName: "login-request" */ '@/views/LoginRequest.vue');
 const Sign = () => import(/* webpackChunkName: "sign" */ '@/views/Sign.vue');
 const Authorize = () => import(/* webpackChunkName: "authorize" */ '@/views/Authorize.vue');
 const Revoke = () => import(/* webpackChunkName: "revoke" */ '@/views/Revoke.vue');
@@ -96,12 +95,22 @@ export default new Router({
     {
       path: '/login-request',
       name: 'login-request',
-      component: LoginRequest,
+      redirect: to => ({
+        name: 'login',
+        query: {
+          redirect: to.fullPath,
+        },
+      }),
     },
     {
       path: '/login-request/:clientId',
       name: 'login-request-app',
-      component: LoginRequest,
+      redirect: to => ({
+        name: 'login',
+        query: {
+          redirect: to.fullPath,
+        },
+      }),
     },
     {
       path: '/sign/*',

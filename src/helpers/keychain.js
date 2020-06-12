@@ -7,7 +7,7 @@ export function getKeychain() {
     try {
       keychain = JSON.parse(storedKeychain);
     } catch (err) {
-      console.log("Couldn't parse stored keystore", err);
+      console.log("Couldn't parse stored hivesigner data", err);
     }
   }
   return keychain;

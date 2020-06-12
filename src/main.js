@@ -14,11 +14,6 @@ import numberFormats from '@/number.json';
 import createIdleDetector from '@/helpers/idle';
 import { isChromeExtension } from '@/helpers/utils';
 
-let ipc = null;
-if (typeof window !== 'undefined' && window.require) {
-  ipc = window.require('electron').ipcRenderer;
-}
-
 // eslint-disable-next-line import/prefer-default-export
 export const idleDetector = createIdleDetector({
   autostop: true,
@@ -48,14 +43,6 @@ Vue.use(VueI18n);
 
 getPersistedData(({ store, url }) => {
   store.dispatch('loadSettings');
-
-  if (ipc) {
-    ipc.on('handleProtocol', (e, arg) => {
-      const newUrl = `/${arg.slice('hive://'.length)}`;
-
-      router.push(newUrl);
-    });
-  }
 
   const i18n = new VueI18n({
     locale: 'en',

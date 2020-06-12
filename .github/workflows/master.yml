@@ -1,0 +1,50 @@
+name: Master CI/CD
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install, build, lint and test
+      run: |
+        npm install
+        npm run build --if-present
+        npm run lint --if-present
+        npm run test --if-present
+      env:
+        CI: true
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: SSH and deploy node app
+      uses: appleboy/ssh-action@5711a203b3207eb1c6cebec6ac2152ab210ec3ae
+      env:
+        BROADCAST_URL: ${{secrets.BROADCAST_URL}}
+        BROADCASTER_USERNAME: ${{secrets.BROADCASTER_USERNAME}}
+        BROADCASTER_POSTING_WIF: ${{secrets.BROADCASTER_POSTING_WIF}}
+        PRODUCTION_PORT: ${{secrets.PRODUCTION_PORT}}
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        envs: BROADCAST_URL,BROADCASTER_USERNAME,BROADCASTER_POSTING_WIF,PRODUCTION_PORT
+        script: |
+          cd ~/hsproduction
+          git pull origin master
+          npm install
+          npm run build
+          export PORT=$PRODUCTION_PORT
+          pm2 restart master

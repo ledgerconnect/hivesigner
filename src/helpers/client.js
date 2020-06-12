@@ -1,18 +1,17 @@
 import { Client } from '@hiveio/dhive';
 import * as hiveuri from 'hive-uri';
 
-const CLIENT_OPTIONS = { timeout: 10000 };
+const CLIENT_OPTIONS = { timeout: 5000 };
 const EXPIRE_TIME = 1000 * 60;
 
 const DEFAULT_SERVER = [
   'https://anyx.io',
   'https://api.pharesim.me',
-  'https://api.hive.blog',
   'https://rpc.esteem.app',
   'https://api.hivekings.com',
 ];
 
-let rawClient = new Client(DEFAULT_SERVER, CLIENT_OPTIONS);
+let rawClient = new Client([process.env.BROADCAST_URL||"https://api.hive.blog", ...DEFAULT_SERVER], CLIENT_OPTIONS);
 
 const handler = {
   get(target, prop) {

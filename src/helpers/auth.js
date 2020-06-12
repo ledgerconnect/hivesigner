@@ -30,7 +30,7 @@ async function getUserKeysMap(username) {
   try {
     accounts = await client.database.getAccounts([username]);
   } catch (err) {
-    console.error(err);
+    console.error('Error getting data from chain', err);
     return keys;
   }
 
