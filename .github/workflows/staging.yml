@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: SSH and deploy node app
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@5711a203b3207eb1c6cebec6ac2152ab210ec3ae
       env:
         BROADCAST_URL: ${{secrets.BROADCAST_URL}}
         BROADCASTER_USERNAME: ${{secrets.BROADCASTER_USERNAME}}
