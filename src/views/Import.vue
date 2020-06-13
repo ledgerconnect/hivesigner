@@ -210,7 +210,7 @@ export default {
       errorMessage: '',
       isWeb: isWeb(),
       requestId: this.$route.query[REQUEST_ID_PARAM],
-      authority: getAuthority(this.$route.query.authority, 'posting'),
+      authority: getAuthority(this.$route.query.authority),
       isChrome: isChromeExtension(),
       clientId: this.$route.params.clientId || this.$route.query.client_id,
       app: null,
