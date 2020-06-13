@@ -144,7 +144,7 @@ export default {
       isLoading: false,
       redirect: this.$route.query.redirect,
       redirected: '',
-      authority: getAuthority(this.$route.query.authority, 'posting'),
+      authority: getAuthority(this.$route.query.authority),
       TOOLTIP_LOGIN_ENCRYPTION_KEY,
 
       showLoading: false,
