@@ -3,7 +3,7 @@
 function API() {
   this.MESSAGE_TAG = 'HIVESIGNER_MESSAGE';
 
-  this.version = '0.2.0';
+  this.version = '0.2.2';
   this.callbacks = {};
 
   window.addEventListener('message', event => {
