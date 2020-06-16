@@ -129,7 +129,11 @@ export default {
           this.loadAccount().then(() => {
             if (isWeb && callback) {
               if (callback[0] === '/') {
-                this.$router.push(callback);
+                // this.$router.push(callback);
+                this.$router.push({
+                  name: 'import',
+                  query: { redirect: callback },
+                });
               } else {
                 window.location = callback;
               }

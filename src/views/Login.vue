@@ -320,6 +320,23 @@ export default {
                 this.isLoading = false;
                 this.resetForm();
               } else {
+                if (
+                  this.scope === 'posting' &&
+                  !isChromeExtension() &&
+                  this.clientId &&
+                  this.username_pre &&
+                  !this.hasAuthority
+                ) {
+                  const uri = `hive://login-request/${
+                    this.clientId
+                  }?${this.$route.query.redirect.replace(/\/login-request\/[a-z]+\?/, '')}`;
+                  this.$router.push({
+                    name: 'authorize',
+                    params: { username: this.clientId },
+                    query: { redirect_uri: uri.replace('hive:/', '') },
+                  });
+                  return;
+                }
                 try {
                   const loginObj = {};
                   loginObj.type = isChromeExtension() ? 'login' : this.scope;

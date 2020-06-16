@@ -300,6 +300,13 @@ export default {
 
       return current;
     },
+    account() {
+      return this.$store.state.auth.account;
+    },
+    hasAuthority() {
+      const auths = this.account.posting.account_auths.map(auth => auth[0]);
+      return auths.indexOf(this.clientId) !== -1;
+    },
     nextText() {
       return this.storeAccount ? 'Continue' : 'Get started';
     },
@@ -414,7 +421,6 @@ export default {
 
       this.loading = true;
       this.showLoading = true;
-
       this.login({ username, keys })
         .then(async () => {
           if (this.redirected !== '' && !this.redirected.includes('/login-request')) {
@@ -424,6 +430,23 @@ export default {
             this.isLoading = false;
             this.resetForm();
           } else {
+            if (
+              this.scope === 'posting' &&
+              !isChromeExtension() &&
+              this.clientId &&
+              this.username_pre &&
+              !this.hasAuthority
+            ) {
+              const uri = `hive://login-request/${
+                this.clientId
+              }?${this.$route.query.redirect.replace(/\/login-request\/[a-z]+\?/, '')}`;
+              this.$router.push({
+                name: 'authorize',
+                params: { username: this.clientId },
+                query: { redirect_uri: uri.replace('hive:/', '') },
+              });
+              return;
+            }
             try {
               const loginObj = {};
               loginObj.type = isChromeExtension() ? 'login' : this.scope;
