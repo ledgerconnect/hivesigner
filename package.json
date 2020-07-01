@@ -1,6 +1,6 @@
 {
   "name": "hivesigner-ui",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Signer app for Hive",
   "homepage": "https://hivesigner.com",
   "main": "electron-entry.js",
@@ -12,7 +12,6 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit",
-    "zip": "zip -r hivesigner-chrome.zip www && mv hivesigner-chrome.zip www",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {

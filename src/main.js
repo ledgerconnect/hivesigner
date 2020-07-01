@@ -12,7 +12,6 @@ import getPersistedData from '@/persisted';
 import messages from '@/translation.json';
 import numberFormats from '@/number.json';
 import createIdleDetector from '@/helpers/idle';
-import { isChromeExtension } from '@/helpers/utils';
 
 // eslint-disable-next-line import/prefer-default-export
 export const idleDetector = createIdleDetector({
@@ -41,7 +40,7 @@ Vue.filter('pretty', value => {
 Vue.use(VueUi);
 Vue.use(VueI18n);
 
-getPersistedData(({ store, url }) => {
+getPersistedData(({ store }) => {
   store.dispatch('loadSettings');
 
   const i18n = new VueI18n({
@@ -59,21 +58,7 @@ getPersistedData(({ store, url }) => {
     render: h => h(App),
     created() {
       const { savedPath } = this.$store.state.ui;
-
-      if (!isChromeExtension()) return;
-
-      if (url) {
-        this.$router.push(url);
-        return;
-      }
-
-      if (savedPath) {
-        this.$router.push(savedPath);
-      }
-
-      this.$router.afterEach(to => {
-        this.$store.dispatch('savePath', to.path);
-      });
+      console.log('savePath', savedPath);
     },
   }).$mount('#app');
 });

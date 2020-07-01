@@ -26,14 +26,10 @@
 <script>
 import pkg from '@/../package.json';
 
-const chromeExtensionUrl =
-  'https://chrome.google.com/webstore/detail/hivesigner/ophihnhnfgcmhpbcennhppicomdeabip';
-
 export default {
   data() {
     return {
       pkg,
-      chromeExtensionUrl,
     };
   },
 };
