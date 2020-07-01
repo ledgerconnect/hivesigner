@@ -8,7 +8,7 @@
 </template>
 
 <script>
-const LOADING_ICON_TIMEOUT = 300;
+const LOADING_ICON_TIMEOUT = 10;
 
 export default {
   data() {
