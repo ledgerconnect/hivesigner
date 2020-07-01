@@ -19,7 +19,7 @@
               <a class="ml-3 text-red" @click="logout">Log out</a>
             </span>
             <span v-else>
-              <router-link class="ml-3" to="/login">Unlock</router-link>
+              <router-link class="ml-3" to="/login?redirect=accounts">Unlock</router-link>
             </span>
             <a
               class="iconfont icon-trashcan float-right text-red p-1"

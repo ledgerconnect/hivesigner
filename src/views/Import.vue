@@ -8,6 +8,7 @@
           redirected == '/profile' ||
           redirected == '/import' ||
           redirected.includes('/authorize') ||
+          redirected.includes('accounts') ||
           redirected.includes('/sign') ||
           redirected.includes('/revoke')
       "
@@ -22,6 +23,7 @@
           redirected != '/profile' &&
           redirected != '/import' &&
           !redirected.includes('/authorize') &&
+          !redirected.includes('/accounts') &&
           !redirected.includes('/sign') &&
           !redirected.includes('/revoke')
       "
@@ -80,8 +82,7 @@
             @blur="handleBlur('password')"
           />
           <label class="mb-2" :class="{ 'mb-4': !error }">
-            <input key="storeAccount" v-model="storeAccount" type="checkbox" /> Keep the account on
-            this device
+            <input key="storeAccount" v-model="storeAccount" type="checkbox" /> Encrypt your keys
           </label>
           <div v-if="!!error" class="error mb-4">{{ error }}</div>
           <button
@@ -506,6 +507,9 @@ export default {
       if (this.storeAccount) {
         this.step += 1;
       } else {
+        const keys = await getKeys(username, password);
+        const k = Buffer.from(JSON.stringify(keys));
+        addToKeychain(username, `decrypted${k.toString('hex')}`);
         this.startLogin();
       }
     },
