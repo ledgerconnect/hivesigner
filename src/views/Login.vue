@@ -23,7 +23,7 @@
           redirected != '/profile' &&
           redirected != '/login' &&
           !redirected.includes('/authorize') &&
-          !redirected.includes('/accounts') &&
+          !redirected.includes('accounts') &&
           !redirected.includes('/revoke') &&
           !redirected.includes('/sign')
       "
