@@ -27,5 +27,5 @@ npm run zip
 ## Issues
 
 To report a non-critical issue, please file an issue on this GitHub project.
-If you find a security issue please report details to security@hivesigner.com or trusted community members.
+If you find a security issue please report details to `security@hivesigner.com` or trusted community members.
 We will evaluate the risk and make a patch available before filing the issue.
