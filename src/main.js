@@ -58,7 +58,6 @@ getPersistedData(({ store }) => {
     render: h => h(App),
     created() {
       const { savedPath } = this.$store.state.ui;
-      console.log('savePath', savedPath);
     },
   }).$mount('#app');
 });
