@@ -11,7 +11,7 @@
             class="rounded-2 px-3 py-3 bg-primary text-white button-link"
           >
             <span class="iconfont icon-shield" />
-            Login
+            Get started
           </router-link>
         </div>
         <p>
