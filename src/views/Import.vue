@@ -92,6 +92,13 @@
           >
             {{ nextText }}
           </button>
+          <button
+            :disabled="isLoading"
+            class="btn btn-large input-block text-center mb-2"
+            @click="signUp()"
+          >
+            Signup
+          </button>
         </div>
         <div v-if="step === 2">
           <label for="key">
@@ -368,6 +375,9 @@ export default {
         result[item[0]] = decodeURIComponent(item[1]);
       });
       return result;
+    },
+    signUp() {
+      window.open('https://signup.hive.io', '_blank');
     },
     async loadAppProfile() {
       this.showLoading = true;

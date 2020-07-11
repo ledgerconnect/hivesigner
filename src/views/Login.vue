@@ -103,7 +103,7 @@
           :to="{ name: 'import', query: { redirect, authority } }"
           class="btn btn-large input-block text-center mb-2"
         >
-          Import new account
+          Import account
         </router-link>
       </form>
     </div>
