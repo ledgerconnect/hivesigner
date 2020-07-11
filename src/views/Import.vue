@@ -141,7 +141,7 @@
             type="submit"
             class="btn btn-large btn-blue input-block mb-2"
           >
-            Get started
+            Import account
           </button>
         </div>
         <router-link
@@ -149,7 +149,7 @@
           :to="{ name: 'login', query: { redirect, authority } }"
           class="btn btn-large input-block text-center mb-2"
         >
-          Log in instead
+          Select account
         </router-link>
       </form>
     </div>
@@ -309,7 +309,7 @@ export default {
       return auths.indexOf(this.clientId) !== -1;
     },
     nextText() {
-      return this.storeAccount ? 'Continue' : 'Get started';
+      return this.storeAccount ? 'Continue' : 'Import account';
     },
     nextDisabled() {
       return !!this.errors.username || !!this.errors.password;
@@ -416,7 +416,7 @@ export default {
 
       if (authority && !keys[authority]) {
         this.isLoading = false;
-        this.error = `You need to use master or ${authority} key to log in.`;
+        this.error = `You need to use master or ${authority} key to login.`;
         return;
       }
 
@@ -473,7 +473,7 @@ export default {
                 window.location = callback;
               }
             } catch (err) {
-              console.error('Failed to log in', err);
+              console.error('Failed to login', err);
               this.signature = '';
               this.failed = true;
               if (this.requestId) {

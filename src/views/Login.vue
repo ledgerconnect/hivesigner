@@ -97,7 +97,7 @@
           type="submit"
           class="btn btn-large btn-blue input-block mb-2"
         >
-          Log in
+          Login
         </button>
         <router-link
           :to="{ name: 'import', query: { redirect, authority } }"
@@ -356,7 +356,7 @@ export default {
                 window.location = callback;
               }
             } catch (err) {
-              console.error('Failed to log in', err);
+              console.error('Failed to login', err);
               this.signature = '';
               this.failed = true;
               if (this.requestId) {
@@ -448,7 +448,7 @@ export default {
           window.location = callback;
         }
       } catch (err) {
-        console.error('Failed to log in', err);
+        console.error('Failed to login', err);
         this.signature = '';
         this.failed = true;
         if (this.requestId) {
