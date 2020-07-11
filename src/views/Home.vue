@@ -4,7 +4,7 @@
       <span class="logo iconfont icon-hivesigner" />
       <h4 class="m-0">hivesigner</h4>
       <div class="mt-4 mb-7">
-        <h1 class="mb-6">You're in control of your keys.</h1>
+        <h2 class="mb-6">You're in control of your keys.</h2>
         <div class="mb-6">
           <router-link
             to="/login?redirect=accounts"
@@ -14,9 +14,9 @@
             Get started
           </router-link>
         </div>
-        <p>
+        <!-- <p>
           Hivesigner neither stores nor has access to your private keys.
-        </p>
+        </p> -->
       </div>
       <Footer />
     </Center>

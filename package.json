@@ -56,12 +56,12 @@
     "vue-template-compiler": "^2.6.10"
   },
   "contributors": [
-    "Feruz Muradov <feruz@tuta.io> (https://github.com/feruzm)",
     "Fabien Marino <fabien@bonustrack.co> (https://github.com/bonustrack)",
     "Wiktor Tkaczyński <wiktor.tkaczynski@gmail.com> (https://github.com/Sekhmet)",
     "Johan Nordberg (https://github.com/jnordberg)",
     "Nico Wehmöller (https://github.com/wehmoen)",
-    "Mahdi Yari (https://github.com/mahdiyari)"
+    "Mahdi Yari (https://github.com/mahdiyari)",
+    "Feruz Muradov <feruz@tuta.io> (https://github.com/feruzm)"
   ],
   "repository": {
     "type": "git",
