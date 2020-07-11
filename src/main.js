@@ -56,8 +56,5 @@ getPersistedData(({ store }) => {
     router,
     store,
     render: h => h(App),
-    created() {
-      const { savedPath } = this.$store.state.ui;
-    },
   }).$mount('#app');
 });
