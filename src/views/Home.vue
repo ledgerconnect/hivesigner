@@ -4,20 +4,19 @@
       <span class="logo iconfont icon-hivesigner" />
       <h4 class="m-0">hivesigner</h4>
       <div class="mt-4 mb-7">
-        <h1 class="mb-6">You're in control of your keys.</h1>
-        <div class="mb-6 hide-sm">
-          <a
-            :href="chromeExtensionUrl"
-            target="_blank"
+        <h2 class="mb-6">You're in control of your keys.</h2>
+        <div class="mb-6">
+          <router-link
+            to="/login?redirect=accounts"
             class="rounded-2 px-3 py-3 bg-primary text-white button-link"
           >
-            <span class="iconfont icon-chrome" />
-            Download extension
-          </a>
+            <span class="iconfont icon-shield" />
+            Get started
+          </router-link>
         </div>
-        <p>
+        <!-- <p>
           Hivesigner neither stores nor has access to your private keys.
-        </p>
+        </p> -->
       </div>
       <Footer />
     </Center>
@@ -27,23 +26,11 @@
 <script>
 import pkg from '@/../package.json';
 
-const chromeExtensionUrl =
-  'https://chrome.google.com/webstore/detail/hivesigner/ophihnhnfgcmhpbcennhppicomdeabip';
-
 export default {
   data() {
     return {
       pkg,
-      chromeExtensionUrl,
     };
   },
 };
 </script>
-
-<style scoped lang="less">
-.icon-chrome,
-.icon-desktop-windows {
-  font-size: 28px;
-  vertical-align: -4px;
-}
-</style>

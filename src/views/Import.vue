@@ -8,6 +8,7 @@
           redirected == '/profile' ||
           redirected == '/import' ||
           redirected.includes('/authorize') ||
+          redirected.includes('accounts') ||
           redirected.includes('/sign') ||
           redirected.includes('/revoke')
       "
@@ -22,6 +23,7 @@
           redirected != '/profile' &&
           redirected != '/import' &&
           !redirected.includes('/authorize') &&
+          !redirected.includes('accounts') &&
           !redirected.includes('/sign') &&
           !redirected.includes('/revoke')
       "
@@ -80,8 +82,7 @@
             @blur="handleBlur('password')"
           />
           <label class="mb-2" :class="{ 'mb-4': !error }">
-            <input key="storeAccount" v-model="storeAccount" type="checkbox" /> Keep the account on
-            this device
+            <input key="storeAccount" v-model="storeAccount" type="checkbox" /> Encrypt your keys
           </label>
           <div v-if="!!error" class="error mb-4">{{ error }}</div>
           <button
@@ -90,6 +91,20 @@
             @click.prevent="submitNext"
           >
             {{ nextText }}
+          </button>
+          <router-link
+            v-if="hasAccounts"
+            :to="{ name: 'login', query: { redirect, authority } }"
+            class="btn btn-large input-block text-center mb-2"
+          >
+            Select account
+          </router-link>
+          <button
+            :disabled="isLoading"
+            class="btn btn-large input-block text-center mb-2"
+            @click="signUp()"
+          >
+            Signup
           </button>
         </div>
         <div v-if="step === 2">
@@ -140,16 +155,9 @@
             type="submit"
             class="btn btn-large btn-blue input-block mb-2"
           >
-            Get started
+            Import account
           </button>
         </div>
-        <router-link
-          v-if="hasAccounts"
-          :to="{ name: 'login', query: { redirect, authority } }"
-          class="btn btn-large input-block text-center mb-2"
-        >
-          Log in instead
-        </router-link>
       </form>
     </div>
     <VueLoadingIndicator v-if="loading" class="overlay fixed big" />
@@ -308,7 +316,7 @@ export default {
       return auths.indexOf(this.clientId) !== -1;
     },
     nextText() {
-      return this.storeAccount ? 'Continue' : 'Get started';
+      return this.storeAccount ? 'Continue' : 'Import account';
     },
     nextDisabled() {
       return !!this.errors.username || !!this.errors.password;
@@ -368,6 +376,9 @@ export default {
       });
       return result;
     },
+    signUp() {
+      window.open('https://signup.hive.io', '_blank');
+    },
     async loadAppProfile() {
       this.showLoading = true;
       const app = this.clientId;
@@ -415,7 +426,7 @@ export default {
 
       if (authority && !keys[authority]) {
         this.isLoading = false;
-        this.error = `You need to use master or ${authority} key to log in.`;
+        this.error = `You need to use master or ${authority} key to login.`;
         return;
       }
 
@@ -472,7 +483,7 @@ export default {
                 window.location = callback;
               }
             } catch (err) {
-              console.error('Failed to log in', err);
+              console.error('Failed to login', err);
               this.signature = '';
               this.failed = true;
               if (this.requestId) {
@@ -506,6 +517,9 @@ export default {
       if (this.storeAccount) {
         this.step += 1;
       } else {
+        const keys = await getKeys(username, password);
+        const k = Buffer.from(JSON.stringify(keys));
+        addToKeychain(username, `decrypted${k.toString('hex')}`);
         this.startLogin();
       }
     },

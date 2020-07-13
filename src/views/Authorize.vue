@@ -131,7 +131,7 @@ export default {
               if (callback[0] === '/') {
                 // this.$router.push(callback);
                 this.$router.push({
-                  name: 'import',
+                  name: 'login',
                   query: { redirect: callback },
                 });
               } else {

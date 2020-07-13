@@ -8,9 +8,7 @@
 </template>
 
 <script>
-import { isChromeExtension } from '@/helpers/utils';
-
-const LOADING_ICON_TIMEOUT = 300;
+const LOADING_ICON_TIMEOUT = 10;
 
 export default {
   data() {
@@ -24,7 +22,7 @@ export default {
       return !!this.$store.state.settings.properties.head_block_number;
     },
     isExtension() {
-      return isChromeExtension();
+      return false;
     },
   },
   created() {

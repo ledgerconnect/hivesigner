@@ -8,6 +8,7 @@
           redirected == '/profile' ||
           redirected == '/login' ||
           redirected.includes('/authorize') ||
+          redirected.includes('accounts') ||
           redirected.includes('/revoke') ||
           redirected.includes('/sign')
       "
@@ -22,6 +23,7 @@
           redirected != '/profile' &&
           redirected != '/login' &&
           !redirected.includes('/authorize') &&
+          !redirected.includes('accounts') &&
           !redirected.includes('/revoke') &&
           !redirected.includes('/sign')
       "
@@ -59,13 +61,13 @@
           autocorrect="off"
           autocapitalize="none"
           autocomplete="username"
-          @blur="handleBlur('username')"
+          @change="handleBlur('username')"
         >
           <option v-for="user in Object.keys(keychain)" :key="user" :value="user">
             {{ user }}
           </option>
         </select>
-        <label for="password">
+        <label for="password" v-if="!decrypted">
           Hivesigner password
           <span
             class="tooltipped tooltipped-n tooltipped-multiline"
@@ -79,6 +81,7 @@
         </div>
         <input
           id="password"
+          v-if="!decrypted"
           v-model.trim="key"
           type="password"
           autocorrect="off"
@@ -94,7 +97,7 @@
           type="submit"
           class="btn btn-large btn-blue input-block mb-2"
         >
-          Log in
+          Login
         </button>
         <router-link
           :to="{ name: 'import', query: { redirect, authority } }"
@@ -140,6 +143,7 @@ export default {
         username: false,
         key: false,
       },
+      decrypted: true,
       error: '',
       isLoading: false,
       redirect: this.$route.query.redirect,
@@ -220,7 +224,7 @@ export default {
       },
     },
     submitDisabled() {
-      return !!this.errors.username || !!this.errors.key;
+      return !!this.errors.username || (!!this.errors.key && !!this.dirty.key);
     },
     errors() {
       const current = {};
@@ -230,7 +234,7 @@ export default {
         current.username = 'Username is required.';
       }
 
-      if (!key) {
+      if (!key && !this.dirty.key) {
         current.key = 'Hivesigner password is required.';
       }
 
@@ -281,105 +285,118 @@ export default {
     },
     handleBlur(name) {
       this.dirty[name] = true;
+      if (name === 'username' && this.keychain[this.username].startsWith('decrypted')) {
+        this.decrypted = true;
+        this.dirty.key = true;
+      } else {
+        this.decrypted = false;
+        this.dirty.key = true;
+      }
+    },
+    loginme(buff) {
+      const { authority } = this;
+      const keys = jsonParse(buff.toString());
+      if (authority && !keys[authority]) {
+        this.isLoading = false;
+        this.error = `You need to import your account using your password or ${authority} key to do this request. Click "Import account" button to proceed.`;
+        return;
+      }
+
+      this.loading = true;
+      this.showLoading = true;
+
+      this.login({ username: this.username, keys })
+        .then(async () => {
+          if (this.redirected !== '' && !this.redirected.includes('/login-request')) {
+            const { redirect } = this.$route.query;
+            this.$router.push(redirect || '/');
+            this.error = '';
+            this.isLoading = false;
+            this.resetForm();
+          } else {
+            if (
+              this.scope === 'posting' &&
+              !isChromeExtension() &&
+              this.clientId &&
+              this.username_pre &&
+              !this.hasAuthority
+            ) {
+              const uri = `hive://login-request/${
+                this.clientId
+              }?${this.$route.query.redirect.replace(/\/login-request\/[a-z]+\?/, '')}`;
+              this.$router.push({
+                name: 'authorize',
+                params: { username: this.clientId },
+                query: { redirect_uri: uri.replace('hive:/', '') },
+              });
+              return;
+            }
+            try {
+              const loginObj = {};
+              loginObj.type = isChromeExtension() ? 'login' : this.scope;
+              if (this.responseType === 'code') loginObj.type = 'code';
+              if (this.app) loginObj.app = this.app;
+              const signedMessageObj = await this.signMessage({
+                message: loginObj,
+                authority: this.authority,
+              });
+              [this.signature] = signedMessageObj.signatures;
+              const token = b64uEnc(JSON.stringify(signedMessageObj));
+              if (this.requestId) {
+                signComplete(this.requestId, null, token);
+              }
+              if (!isChromeExtension()) {
+                let { callback } = this;
+                callback +=
+                  this.responseType === 'code' ? `?code=${token}` : `?access_token=${token}`;
+                callback += `&username=${this.username}`;
+                if (this.responseType !== 'code') callback += '&expires_in=604800';
+                if (this.state) callback += `&state=${encodeURIComponent(this.state)}`;
+
+                window.location = callback;
+              }
+            } catch (err) {
+              console.error('Failed to login', err);
+              this.signature = '';
+              this.failed = true;
+              if (this.requestId) {
+                signComplete(this.requestId, err, null);
+              }
+              this.loading = false;
+              this.showLoading = false;
+            }
+          }
+        })
+        .catch(err => {
+          console.log('Login failed', err);
+          this.isLoading = false;
+          this.error = ERROR_INVALID_CREDENTIALS;
+        });
     },
     submitForm() {
-      const { authority } = this;
       const encryptedKeys = this.keychain[this.username];
       this.isLoading = true;
-
-      triplesec.decrypt(
-        {
-          data: new triplesec.Buffer(encryptedKeys, 'hex'),
-          key: new triplesec.Buffer(this.key),
-        },
-        (decryptError, buff) => {
-          if (decryptError) {
-            this.isLoading = false;
-            this.error = ERROR_INVALID_ENCRYPTION_KEY;
-
-            console.log('err', decryptError);
-            return;
-          }
-
-          const keys = jsonParse(buff.toString());
-          if (authority && !keys[authority]) {
-            this.isLoading = false;
-            this.error = `You need to import your account using your password or ${authority} key to do this request. Click "Import account" button to proceed.`;
-            return;
-          }
-
-          this.loading = true;
-          this.showLoading = true;
-
-          this.login({ username: this.username, keys })
-            .then(async () => {
-              if (this.redirected !== '' && !this.redirected.includes('/login-request')) {
-                const { redirect } = this.$route.query;
-                this.$router.push(redirect || '/');
-                this.error = '';
-                this.isLoading = false;
-                this.resetForm();
-              } else {
-                if (
-                  this.scope === 'posting' &&
-                  !isChromeExtension() &&
-                  this.clientId &&
-                  this.username_pre &&
-                  !this.hasAuthority
-                ) {
-                  const uri = `hive://login-request/${
-                    this.clientId
-                  }?${this.$route.query.redirect.replace(/\/login-request\/[a-z]+\?/, '')}`;
-                  this.$router.push({
-                    name: 'authorize',
-                    params: { username: this.clientId },
-                    query: { redirect_uri: uri.replace('hive:/', '') },
-                  });
-                  return;
-                }
-                try {
-                  const loginObj = {};
-                  loginObj.type = isChromeExtension() ? 'login' : this.scope;
-                  if (this.responseType === 'code') loginObj.type = 'code';
-                  if (this.app) loginObj.app = this.app;
-                  const signedMessageObj = await this.signMessage({
-                    message: loginObj,
-                    authority: this.authority,
-                  });
-                  [this.signature] = signedMessageObj.signatures;
-                  const token = b64uEnc(JSON.stringify(signedMessageObj));
-                  if (this.requestId) {
-                    signComplete(this.requestId, null, token);
-                  }
-                  if (!isChromeExtension()) {
-                    let { callback } = this;
-                    callback +=
-                      this.responseType === 'code' ? `?code=${token}` : `?access_token=${token}`;
-                    callback += `&username=${this.username}`;
-                    if (this.responseType !== 'code') callback += '&expires_in=604800';
-                    if (this.state) callback += `&state=${encodeURIComponent(this.state)}`;
-
-                    window.location = callback;
-                  }
-                } catch (err) {
-                  console.error('Failed to log in', err);
-                  this.signature = '';
-                  this.failed = true;
-                  if (this.requestId) {
-                    signComplete(this.requestId, err, null);
-                  }
-                  this.loading = false;
-                  this.showLoading = false;
-                }
-              }
-            })
-            .catch(err => {
-              console.log('Login failed', err);
+      if (this.decrypted) {
+        this.isLoading = false;
+        const bb = Buffer.from(encryptedKeys.replace('decrypted', ''), 'hex').toString();
+        this.loginme(bb);
+      } else {
+        triplesec.decrypt(
+          {
+            data: new triplesec.Buffer(encryptedKeys, 'hex'),
+            key: new triplesec.Buffer(this.key),
+          },
+          (decryptError, buff) => {
+            if (decryptError) {
               this.isLoading = false;
-              this.error = ERROR_INVALID_CREDENTIALS;
-            });
-        },
-      );
+              this.error = ERROR_INVALID_ENCRYPTION_KEY;
+              console.log('err', decryptError);
+              return;
+            }
+            this.loginme(buff);
+          },
+        );
+      }
     },
     async loadAppProfile() {
       this.showLoading = true;
@@ -431,7 +448,7 @@ export default {
           window.location = callback;
         }
       } catch (err) {
-        console.error('Failed to log in', err);
+        console.error('Failed to login', err);
         this.signature = '';
         this.failed = true;
         if (this.requestId) {

@@ -1,4 +1,3 @@
-/* global chrome */
 import { has, snakeCase } from 'lodash';
 import urlParse from 'url-parse';
 import qs from 'query-string';
@@ -7,8 +6,7 @@ import operations from '@/helpers/operations.json';
 
 export const REQUEST_ID_PARAM = 'requestId';
 
-export const isChromeExtension = () =>
-  window.chrome && window.chrome.runtime && window.chrome.runtime.id;
+export const isChromeExtension = () => false;
 
 export const isWeb = () => !isChromeExtension();
 
@@ -127,15 +125,8 @@ export function buildSearchParams(route) {
   return `?${params}`;
 }
 
-export function signComplete(requestId, err, res) {
+export function signComplete() {
   if (!isChromeExtension()) return;
-  chrome.runtime.sendMessage({
-    type: 'signComplete',
-    payload: {
-      requestId,
-      args: [err, res],
-    },
-  });
   window.close();
 }
 

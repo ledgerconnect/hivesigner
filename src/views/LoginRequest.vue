@@ -2,7 +2,7 @@
   <div>
     <VueLoadingIndicator v-if="showLoading" class="overlay fixed big" />
     <div v-else>
-      <Header :title="`Log in request (${authority})`" />
+      <Header :title="`Login request (${authority})`" />
       <div v-if="!failed" class="p-4 after-header">
         <div class="container-sm mx-auto">
           <div v-if="!failed && !signature">
@@ -37,7 +37,7 @@
                 @click="handleSubmit"
                 v-else
               >
-                Log in
+                Login
               </button>
               <button class="btn btn-large mb-2" @click="handleReject">
                 Cancel
@@ -48,7 +48,7 @@
       </div>
       <div class="p-4 after-header" v-else>
         <div class="container-sm mx-auto flash flash-error mb-4">
-          Oops, something went wrong. The log in request URL provided is invalid.
+          Oops, something went wrong. The login request URL provided is invalid.
         </div>
       </div>
     </div>
@@ -176,7 +176,7 @@ export default {
           window.location = callback;
         }
       } catch (err) {
-        console.error('Failed to log in', err);
+        console.error('Failed to login', err);
         this.signature = '';
         this.failed = true;
         if (this.requestId) {
