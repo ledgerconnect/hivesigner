@@ -134,6 +134,19 @@
       }
     }
   },
+  "cancel_transfer_from_savings": {
+    "name": "Cancel transfer from saving",
+    "authority": "active",
+    "schema": {
+      "from": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "request_id": {
+        "type": "int"
+      }
+    }
+  },
   "convert": {
     "name": "Convert",
     "authority": "active",
