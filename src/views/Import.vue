@@ -92,6 +92,20 @@
           >
             {{ nextText }}
           </button>
+          <router-link
+            v-if="hasAccounts"
+            :to="{ name: 'login', query: { redirect, authority } }"
+            class="btn btn-large input-block text-center mb-2"
+          >
+            Select account
+          </router-link>
+          <button
+            :disabled="isLoading"
+            class="btn btn-large input-block text-center mb-2"
+            @click="signUp()"
+          >
+            Signup
+          </button>
         </div>
         <div v-if="step === 2">
           <label for="key">
@@ -144,20 +158,6 @@
             Import account
           </button>
         </div>
-        <router-link
-          v-if="hasAccounts"
-          :to="{ name: 'login', query: { redirect, authority } }"
-          class="btn btn-large input-block text-center mb-2"
-        >
-          Select account
-        </router-link>
-        <button
-          :disabled="isLoading"
-          class="btn btn-large input-block text-center mb-2"
-          @click="signUp()"
-        >
-          Signup
-        </button>
       </form>
     </div>
     <VueLoadingIndicator v-if="loading" class="overlay fixed big" />
