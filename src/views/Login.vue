@@ -174,6 +174,7 @@ export default {
     };
   },
   mounted() {
+    this.handleBlur('username');
     this.redirected = this.$route.query.redirect || '';
     if (this.$route.fullPath === '/login' || this.$route.fullPath === '/login?authority=posting') {
       this.redirected = '/login';
@@ -285,7 +286,7 @@ export default {
     },
     handleBlur(name) {
       this.dirty[name] = true;
-      if (name === 'username' && this.keychain[this.username].startsWith('decrypted')) {
+      if (name === 'username' && this.keychain[this.username].includes('decrypted')) {
         this.decrypted = true;
         this.dirty.key = true;
       } else {

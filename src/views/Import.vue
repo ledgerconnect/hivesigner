@@ -519,7 +519,7 @@ export default {
       } else {
         const keys = await getKeys(username, password);
         const k = Buffer.from(JSON.stringify(keys));
-        addToKeychain(username, `decrypted${k.toString('hex')}`);
+        addToKeychain(username, `${k.toString('hex')}decrypted`);
         this.startLogin();
       }
     },
