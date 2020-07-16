@@ -205,7 +205,7 @@ export default {
         keyConfirmation: false,
       },
       error: '',
-      storeAccount: !isWeb(),
+      storeAccount: true,
       isLoading: false,
       redirect: this.$route.query.redirect,
       redirected: '',
