@@ -197,7 +197,7 @@ export default {
       }
       Object.keys(draft).forEach(key => draft[key] == null && delete draft[key]);
       const profile = { ...this.profile, ...draft };
-
+      profile.version = 2;
       let metadata = jsonParse(this.account.json_metadata);
       metadata = { ...metadata, profile };
 
@@ -205,8 +205,7 @@ export default {
         'account_update2',
         {
           account: this.account.name,
-          memo_key: this.account.memo_key,
-          json_metadata: JSON.stringify(metadata),
+          json_metadata: "",
           posting_json_metadata: JSON.stringify(metadata),
         },
       ];

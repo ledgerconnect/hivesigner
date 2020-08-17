@@ -463,17 +463,15 @@
   },
   "account_update2": {
     "name": "Update account",
-    "authority": "active",
+    "authority": "posting",
     "schema": {
       "account": {
         "type": "account",
         "defaultValue": "__signer"
       },
-      "memo_key": {
-        "type": "string"
-      },
       "json_metadata": {
-        "type": "json"
+        "type": "json",
+        "defaultValue": ""
       },
       "posting_json_metadata": {
         "type": "json"
