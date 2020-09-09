@@ -74,7 +74,7 @@
           <p>
             OAuth 2 is the industry-standard protocol for authorization. After you have checked
             above steps, You can read more about
-            <a href="https://github.com/ledgerconnect/hivesigner/wiki/OAuth-2" target="_blank">
+            <a href="https://github.com/ledgerconnect/hivesigner/wiki/How-OAuth2-Work%3F" target="_blank">
               authorization flow in our Wiki page</a
             >
           </p>
