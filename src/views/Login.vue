@@ -299,7 +299,7 @@ export default {
       const keys = jsonParse(buff.toString());
       if (authority && !keys[authority]) {
         this.isLoading = false;
-        this.error = `You need to import your account using your password or ${authority} key to do this request. Click "Import account" button to proceed.`;
+        this.error = `You need to import your account using your password or at least ${authority} key to do this request. Click "Import account" button to proceed.`;
         return;
       }
 

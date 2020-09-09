@@ -11,7 +11,7 @@
           @click="selectSection('new-app')"
           class="Box p-3 d-block border rounded-1 overflow-hidden mb-3"
         >
-          <h4 class="m-0">Add new app</h4>
+          <h4 class="m-0">1. Add new app</h4>
         </a>
         <div v-if="selectedSection === 'new-app'" class="mb-4">
           <div class="mb-3">
@@ -36,7 +36,7 @@
           @click="selectSection('edit-app')"
           class="Box p-3 d-block border rounded-1 overflow-hidden mb-3"
         >
-          <h4 class="m-0">Edit app settings</h4>
+          <h4 class="m-0">2. Edit app settings</h4>
         </a>
         <div v-if="selectedSection === 'edit-app'" class="mb-4">
           <p>You can edit your app settings by updating your app account profile.</p>
@@ -48,16 +48,34 @@
           @click="selectSection('sdk')"
           class="Box p-3 d-block border rounded-1 overflow-hidden mb-3"
         >
-          <h4 class="m-0">SDK</h4>
+          <h4 class="m-0">3. Hivesigner JS SDK</h4>
         </a>
         <div v-if="selectedSection === 'sdk'" class="mb-4">
           <p>
             Get started integrating HiveSigner on your website with HiveSigner.js, the official
-            JavaScript SDK.
+            JavaScript SDK. Learn how to setup and use
+            <a href="https://github.com/ledgerconnect/hivesigner.js#sdk-methods" target="_blank">
+              SDK methods</a
+            >.
           </p>
           <p>
-            <a href="https://github.com/ledgerconnect/hivesigner.js" target="_blank"
+            <a href="https://github.com/ledgerconnect/hivesigner.js#getting-started" target="_blank"
               ><span class="iconfont icon-mark-github" /> hivesigner.js</a
+            >
+          </p>
+        </div>
+        <a
+          @click="selectSection('oauth2')"
+          class="Box p-3 d-block border rounded-1 overflow-hidden mb-3"
+        >
+          <h4 class="m-0">4. How OAuth2 works</h4>
+        </a>
+        <div v-if="selectedSection === 'oauth2'" class="mb-4">
+          <p>
+            OAuth 2 is the industry-standard protocol for authorization. After you have checked
+            above steps, You can read more about
+            <a href="https://github.com/ledgerconnect/hivesigner/wiki/OAuth-2" target="_blank">
+              authorization flow in our Wiki page</a
             >
           </p>
         </div>
@@ -65,7 +83,7 @@
           @click="selectSection('demo')"
           class="Box p-3 d-block border rounded-1 overflow-hidden mb-3"
         >
-          <h4 class="m-0">Demo</h4>
+          <h4 class="m-0">5. Demo</h4>
         </a>
         <div v-if="selectedSection === 'demo'" class="mb-4">
           <p class="mt-2">Checkout HiveSigner demo with Vue.js</p>
@@ -80,26 +98,31 @@
           </p>
         </div>
         <a
-          @click="selectSection('oauth2')"
+          @click="selectSection('usecases')"
           class="Box p-3 d-block border rounded-1 overflow-hidden mb-3"
         >
-          <h4 class="m-0">OAuth2</h4>
+          <h4 class="m-0">6. Other use cases</h4>
         </a>
-        <div v-if="selectedSection === 'oauth2'" class="mb-4">
-          <p>
-            The first step in implementing OAuth2 is registering a developer application, and
-            retrieving your client ID and client secret. The URL for OAuth2 is as follows:
+        <div v-if="selectedSection === 'usecases'" class="mb-4">
+          <p class="mt-2">
+            Hivesigner auth tokens can be used in other ways to secure your apps. Imagehoster
+            instances use it for verifying image uploads by user. You can use same method to secure
+            your backends as well.
           </p>
           <p>
-            <b>Token URL</b><br />
-            https://hivesigner.com/api/oauth2/token
+            <a
+              href="https://github.com/ledgerconnect/hivesigner/wiki/What-other-ways-to-use-Hivesigner-auth%3F"
+              target="_blank"
+              class="mr-2"
+              >Read more about it on our Wiki page</a
+            >
           </p>
         </div>
         <a
           @click="selectSection('help')"
           class="Box p-3 d-block border rounded-1 overflow-hidden mb-3"
         >
-          <h4 class="m-0">Getting help</h4>
+          <h4 class="m-0">7. Contact us</h4>
         </a>
         <div v-if="selectedSection === 'help'" class="mb-4">
           <p>

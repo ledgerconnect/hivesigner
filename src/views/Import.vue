@@ -426,7 +426,7 @@ export default {
 
       if (authority && !keys[authority]) {
         this.isLoading = false;
-        this.error = `You need to use master or ${authority} key to login.`;
+        this.error = `You need to use master or at least ${authority} key to login.`;
         return;
       }
 
