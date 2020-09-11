@@ -86,7 +86,7 @@
           @click="selectSection('demo')"
           class="Box p-3 d-block border rounded-1 overflow-hidden mb-3"
         >
-          <h4 class="m-0">5. Demo</h4>
+          <h4 class="m-0">5. Demo app</h4>
         </a>
         <div v-if="selectedSection === 'demo'" class="mb-4">
           <p class="mt-2">Checkout HiveSigner demo with Vue.js</p>
@@ -110,7 +110,7 @@
           <p class="mt-2">
             Hivesigner auth tokens can be used in other ways to secure your apps. Imagehoster
             instances use it for verifying image uploads by user. You can use same method to secure
-            your backends as well.
+            your backends or you can also authenticate with Hivesigner for off-chain applications.
           </p>
           <p>
             <a
