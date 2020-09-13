@@ -189,7 +189,7 @@ export default {
         : 'token';
       this.state = query.state;
       this.scope = ['login', 'posting'].includes(query.scope) ? query.scope : 'login';
-      this.clientId = params.split('/').pop() || query.client_id;
+      this.clientId = (!params.includes('/sign') && params.split('/').pop()) || query.client_id;
       if (
         this.scope === 'posting' &&
         !isChromeExtension() &&
