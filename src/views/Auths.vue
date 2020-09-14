@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(auth, i) in auths" class="border-bottom" :key="i">
+        <tr v-for="(auth, i) in orderedUsers" class="border-bottom" :key="i">
           <td>{{ auth.authority }}</td>
           <td>
             <OperationValueAccount v-if="auth.type === 'account'" :value="auth.auth[0]" />
@@ -41,11 +41,15 @@
 
 <script>
 import { privateKeyFrom } from '@/helpers/auth';
+import _ from 'lodash';
 
 export default {
   computed: {
     account() {
       return this.$store.state.auth.account;
+    },
+    orderedUsers() {
+      return _.orderBy(this.auths, 'type');
     },
     publicKeys() {
       const { keys } = this.$store.state.auth;
