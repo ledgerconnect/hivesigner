@@ -1,7 +1,7 @@
 {
   "name": "hivesigner-ui",
   "version": "0.2.4",
-  "description": "Signer app for Hive",
+  "description": "Secure way to sign with Hivesigner. Best security for users and developers to integrate industry standard OAuth2.",
   "homepage": "https://hivesigner.com",
   "main": "electron-entry.js",
   "author": "Fabien Marino <fabien@bonustrack.co> (https://github.com/bonustrack)",
