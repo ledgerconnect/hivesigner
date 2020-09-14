@@ -23,6 +23,17 @@ const handler = {
         rawClient = new Client(address, CLIENT_OPTIONS);
       };
     }
+    try {
+      rawClient.database.getVersion().then(res => {
+        if (res.blockchain_version !== '0.23.0') {
+          // true: eclipse rebranded rpc nodes
+          // false: default old nodes (not necessary to call for old nodes)
+          rawClient.updateOperations(true);
+        }
+      });
+    } catch (e) {
+      console('error getVersion', e);
+    }
     return rawClient[prop];
   },
 };

@@ -29,7 +29,7 @@ const mutations = {
 
 const actions = {
   login: async ({ commit, dispatch, rootState }, { username, keys }) => {
-    const key = keys.active || keys.posting || keys.memo;
+    const key = keys.owner || keys.active || keys.posting || keys.memo;
     const valid = await credentialsValid(username, key);
 
     if (!valid) {
@@ -59,7 +59,7 @@ const actions = {
     const privateKey =
       authority && keys[authority]
         ? privateKeyFrom(keys[authority])
-        : privateKeyFrom(keys.active || keys.posting || keys.memo);
+        : privateKeyFrom(keys.owner || keys.active || keys.posting || keys.memo);
     return cryptoUtils.signTransaction(tx, [privateKey], Buffer.from(chainId, 'hex'));
   },
   signMessage: ({ rootState }, { message, authority }) => {
@@ -70,7 +70,7 @@ const actions = {
     const privateKey =
       authority && keys[authority]
         ? privateKeyFrom(keys[authority])
-        : privateKeyFrom(keys.active || keys.posting || keys.memo);
+        : privateKeyFrom(keys.owner || keys.active || keys.posting || keys.memo);
     const signature = privateKey.sign(hash).toString();
     messageObj.signatures = [signature];
     return messageObj;
@@ -78,7 +78,7 @@ const actions = {
   broadcast: (context, tx) => client.broadcast.send(tx),
   updateAccount: ({ rootState }, data) => {
     const { keys } = rootState.auth;
-    const privateKey = privateKeyFrom(keys.active);
+    const privateKey = privateKeyFrom(keys.owner || keys.active);
     return client.broadcast.updateAccount(data, privateKey);
   },
 };

@@ -189,7 +189,7 @@ export default {
         : 'token';
       this.state = query.state;
       this.scope = ['login', 'posting'].includes(query.scope) ? query.scope : 'login';
-      this.clientId = params.split('/').pop() || query.client_id;
+      this.clientId = (!params.includes('/sign') && params.split('/').pop()) || query.client_id;
       if (
         this.scope === 'posting' &&
         !isChromeExtension() &&
@@ -299,7 +299,7 @@ export default {
       const keys = jsonParse(buff.toString());
       if (authority && !keys[authority]) {
         this.isLoading = false;
-        this.error = `You need to import your account using your password or ${authority} key to do this request. Click "Import account" button to proceed.`;
+        this.error = `You need to import your account using your password or at least ${authority} key to do this request. Click "Import account" button to proceed.`;
         return;
       }
 
