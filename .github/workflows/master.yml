@@ -47,4 +47,4 @@ jobs:
           npm install
           npm run build
           export PORT=$PRODUCTION_PORT
-          pm2 restart master
+          pm2 reload master

@@ -47,4 +47,4 @@ jobs:
           npm install
           npm run build
           export PORT=$STAGING_PORT
-          pm2 restart staging
+          pm2 reload staging
