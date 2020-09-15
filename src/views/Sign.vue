@@ -171,15 +171,14 @@ export default {
         (this.$route.query.redirect_uri || this.parsed.params.callback) &&
         isWeb()
       ) {
-        window.location = hiveuri.resolveCallback(
-          `${this.$route.query.redirect_uri}?id=${confirmation.id}` || this.parsed.params.callback,
-          {
-            sig,
-            id: confirmation.id || undefined,
-            block: confirmation.block_num || undefined,
-            txn: confirmation.txn_num || undefined,
-          },
-        );
+        const cburl =
+          this.parsed.params.callback || `${this.$route.query.redirect_uri}?id=${confirmation.id}`;
+        window.location = hiveuri.resolveCallback(cburl, {
+          sig,
+          id: confirmation.id || undefined,
+          block: confirmation.block_num || undefined,
+          txn: confirmation.txn_num || undefined,
+        });
       } else {
         this.loading = false;
       }

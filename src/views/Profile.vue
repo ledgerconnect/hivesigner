@@ -205,7 +205,7 @@ export default {
         'account_update2',
         {
           account: this.account.name,
-          json_metadata: "",
+          json_metadata: '',
           posting_json_metadata: JSON.stringify(metadata),
         },
       ];
