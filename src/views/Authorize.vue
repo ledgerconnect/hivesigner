@@ -46,7 +46,7 @@
             >
               Authorize
             </button>
-            <button class="btn btn-large mb-2" @click="handleReject">
+            <button class="btn btn-large mb-2" @click.prevent="handleReject">
               Cancel
             </button>
           </div>
