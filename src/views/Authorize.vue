@@ -152,6 +152,9 @@ export default {
         });
     },
     handleReject() {
+      this.failed = false;
+      this.loading = false;
+      this.transactionId = '';
       this.$router.push('/');
     },
   },
