@@ -464,6 +464,9 @@ export default {
         signComplete(requestId, 'Request canceled', null);
       }
       if (!isChromeExtension()) {
+        this.failed = false;
+        this.loading = false;
+        this.signature = '';
         this.$router.push('/');
       }
     },

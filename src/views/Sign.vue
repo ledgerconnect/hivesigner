@@ -188,6 +188,9 @@ export default {
         signComplete(this.requestId, 'Request rejected', null);
       }
       if (!isChromeExtension()) {
+        this.failed = false;
+        this.loading = false;
+        this.transactionId = '';
         this.$router.push('/');
       }
     },
