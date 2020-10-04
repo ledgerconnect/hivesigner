@@ -5,10 +5,7 @@ const CLIENT_OPTIONS = { timeout: 5000 };
 const EXPIRE_TIME = 1000 * 60;
 
 const DEFAULT_SERVER = [
-  'https://anyx.io',
-  'https://api.pharesim.me',
   'https://rpc.esteem.app',
-  'https://api.hivekings.com',
 ];
 
 let rawClient = new Client(
