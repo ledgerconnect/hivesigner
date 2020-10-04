@@ -5,11 +5,12 @@ const CLIENT_OPTIONS = { timeout: 5000 };
 const EXPIRE_TIME = 1000 * 60;
 
 const DEFAULT_SERVER = [
-  'https://rpc.esteem.app',
+  'https://api.hive.blog',
+  'https://anyx.io',
 ];
 
 let rawClient = new Client(
-  [process.env.BROADCAST_URL || 'https://api.hive.blog', ...DEFAULT_SERVER],
+  [process.env.BROADCAST_URL || 'https://rpc.esteem.app', ...DEFAULT_SERVER],
   CLIENT_OPTIONS,
 );
 
