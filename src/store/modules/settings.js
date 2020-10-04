@@ -11,7 +11,7 @@ const state = {
   language: 'en',
   timeout: '20',
   theme: 'white',
-  address: 'https://anyx.io',
+  address: 'https://rpc.esteem.app',
 };
 
 const mutations = {
