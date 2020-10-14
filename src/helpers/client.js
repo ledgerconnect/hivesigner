@@ -1,7 +1,7 @@
 import { Client } from '@hiveio/dhive';
 import * as hiveuri from 'hive-uri';
 
-const CLIENT_OPTIONS = { timeout: 5000 };
+const CLIENT_OPTIONS = { timeout: 5000, rebrandedApi: true };
 const EXPIRE_TIME = 1000 * 60;
 
 const DEFAULT_SERVER = [
@@ -10,7 +10,7 @@ const DEFAULT_SERVER = [
 ];
 
 let rawClient = new Client(
-  [process.env.BROADCAST_URL || 'https://rpc.esteem.app', ...DEFAULT_SERVER],
+  [process.env.BROADCAST_URL || 'https://rpc.ecency.com', ...DEFAULT_SERVER],
   CLIENT_OPTIONS,
 );
 
@@ -20,17 +20,6 @@ const handler = {
       return address => {
         rawClient = new Client(address, CLIENT_OPTIONS);
       };
-    }
-    try {
-      rawClient.database.getVersion().then(res => {
-        if (res.blockchain_version !== '0.23.0') {
-          // true: eclipse rebranded rpc nodes
-          // false: default old nodes (not necessary to call for old nodes)
-          rawClient.updateOperations(true);
-        }
-      });
-    } catch (e) {
-      console('error getVersion', e);
     }
     return rawClient[prop];
   },
