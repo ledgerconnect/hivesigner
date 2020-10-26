@@ -1,11 +1,16 @@
 import { Client } from '@hiveio/dhive';
 import * as hiveuri from 'hive-uri';
 
-const CLIENT_OPTIONS = { timeout: 5000, rebrandedApi: true };
+const CLIENT_OPTIONS = { 
+  timeout: 3000, 
+  failoverThreshold: 15,
+  consoleOnFailover: true,
+  rebrandedApi: true };
 const EXPIRE_TIME = 1000 * 60;
 
 const DEFAULT_SERVER = [
   'https://api.hive.blog',
+  'https://rpc.ecency.com',
   'https://anyx.io',
 ];
 
