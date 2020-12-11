@@ -338,10 +338,10 @@
         "type": "account",
         "defaultValue": "__signer"
       },
-      "reward_steem": {
+      "reward_hive": {
         "type": "amount"
       },
-      "reward_sbd": {
+      "reward_hbd": {
         "type": "amount"
       },
       "reward_vests": {
@@ -401,7 +401,7 @@
         "type": "amount",
         "defaultValue": "1000000.000 SBD"
       },
-      "percent_steem_dollars": {
+      "percent_hbd": {
         "type": "int",
         "defaultValue": 10000
       },
