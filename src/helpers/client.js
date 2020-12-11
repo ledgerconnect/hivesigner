@@ -1,21 +1,20 @@
 import { Client } from '@hiveio/dhive';
 import * as hiveuri from 'hive-uri';
 
-const CLIENT_OPTIONS = { 
-  timeout: 3000, 
+const CLIENT_OPTIONS = {
+  timeout: 3000,
   failoverThreshold: 15,
-  consoleOnFailover: true
+  consoleOnFailover: true,
 };
 const EXPIRE_TIME = 1000 * 60;
 
 const DEFAULT_SERVER = [
+  'https://rpc.ecency.com',
   'https://api.hive.blog',
-  'https://api.deathwing.me'
+  'https://api.deathwing.me',
 ];
 
-let rawClient = new Client(DEFAULT_SERVER,
-  CLIENT_OPTIONS,
-);
+let rawClient = new Client(DEFAULT_SERVER, CLIENT_OPTIONS);
 
 const handler = {
   get(target, prop) {
