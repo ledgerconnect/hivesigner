@@ -37,7 +37,7 @@ export function getErrorMessage(error) {
 
 export function getVestsToSP(properties) {
   return (
-    parseFloat(properties.total_vesting_fund_steem) / parseFloat(properties.total_vesting_shares)
+    parseFloat(properties.total_vesting_fund_hive) / parseFloat(properties.total_vesting_shares)
   );
 }
 
