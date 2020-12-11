@@ -2,7 +2,7 @@
   <span
     class="avatar"
     :style="{
-      'background-image': `url(https://avatars.ecency.com/u/${username}/avatar/small`,
+      'background-image': `url(https://images.ecency.com/u/${username}/avatar/small`,
       width: `${this.size}px`,
       height: `${this.size}px`,
     }"
