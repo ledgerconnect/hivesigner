@@ -163,7 +163,29 @@ export default {
     },
     profile() {
       let profile = {};
-      const metadata = jsonParse(this.account.json_metadata);
+      let metadata;
+      if (this.account && this.account.posting_json_metadata) {
+        try {
+          metadata = jsonParse(this.account.posting_json_metadata);
+          if (!metadata.profile || !metadata.profile.version) {
+            metadata = {};
+          }
+        } catch (e) {
+          console.error(`Error parsing account posting_json ${this.account.name}`, e); // error in parsing
+          metadata = {};
+        }
+      }
+      // otherwise, fall back to reading from `json_metadata`
+      if (this.account && this.account.json_metadata && (!metadata || !metadata.profile)) {
+        try {
+          metadata = jsonParse(this.account.json_metadata);
+        } catch (error) {
+          console.error(`Error parsing account json ${this.account.name}`, error); // error in parsing
+          metadata = {};
+        }
+      }
+
+      //const metadata = jsonParse(this.account.posting_json_metadata);
       if (metadata.profile && typeof metadata.profile === 'object') {
         // eslint-disable-next-line prefer-destructuring
         profile = metadata.profile;
