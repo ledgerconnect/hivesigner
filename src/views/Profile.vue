@@ -163,7 +163,7 @@ export default {
     },
     profile() {
       let profile = {};
-      let metadata;
+      let metadata = {};
       if (this.account && this.account.posting_json_metadata) {
         try {
           metadata = jsonParse(this.account.posting_json_metadata);
@@ -186,7 +186,7 @@ export default {
       }
 
       //const metadata = jsonParse(this.account.posting_json_metadata);
-      if (metadata.profile && typeof metadata.profile === 'object') {
+      if (metadata && metadata.profile && typeof metadata.profile === 'object') {
         // eslint-disable-next-line prefer-destructuring
         profile = metadata.profile;
       }
